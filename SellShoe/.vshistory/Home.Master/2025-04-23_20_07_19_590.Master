@@ -1,0 +1,48 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.master.cs" Inherits="SellShoe.Home" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G8Shoe | Trang chủ</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <form id="form1" runat="server">
+        <section id="header">
+            <a href="index.html" class="logo">
+                <img src="../img/logo.png" class="logo" alt="logo">
+            </a>
+
+            <div class="header-right">
+                <ul id="navbar">
+                    <li><a class="active" href="index.html">Trang Chủ</a></li>
+                    <li><a href="shop.html">Sản Phẩm</a></li>
+                    <li><a href="about.html">Giới Thiệu</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                    <li class="checkout">
+                        <a href="cart.html">
+                            <i class="far fa-shopping-cart"></i>
+                            <span id="checkout_items" class="checkout_items">2</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Đăng nhập / Đăng ký -->
+                <div class="sigin_regi">
+                    <a href="login.html">Đăng nhập</a>
+                    <a href="login.html">Đăng ký</a>
+                </div>
+            </div>
+        </section>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

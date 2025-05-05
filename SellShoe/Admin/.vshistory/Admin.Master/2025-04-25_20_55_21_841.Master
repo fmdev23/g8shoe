@@ -1,0 +1,120 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="SellShoe.Admin.Admin" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <link rel="stylesheet" href="~/Admin/ad_product.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="app-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="logo-container">
+                    <i class="fad fa-layer-group"></i>
+                    <h1>Admin</h1>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li>
+                            <a href="ad_dash.aspx" class="nav-item">
+                                <i class="fad fa-th-large"></i>
+                                <span>Dữ liệu</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ProductCategory.aspx" class="nav-item">
+                                <i class="fad fa-list-ul"></i>
+                                <span>Danh mục</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ad_product.aspx" class="nav-item">
+                                <i class="fal fa-shopping-bag"></i>
+                                <span>Sản phẩm</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ad_prodetail.aspx" class="nav-item">
+                                <i class="fal fa-shopping-cart"></i>
+                                <span>T.Tin Đơn hàng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-item">
+                                <i class="fal fa-star-half-alt"></i>
+                                <span>Phản hồi</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="sidebar-divider"></div>
+                    <ul>
+                        <li>
+                            <a href="../index.aspx" class="nav-item">
+                                <i class="fal fa-sign-out"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="ad_dash.aspx">Admin</a>
+                    <i class="fad fa-chevron-right"></i>
+                    <span id="breadcrumbTitle">Đang tải...</span>
+                </div>
+
+
+                <!-- User Profile -->
+                <div class="user-profile">
+                    <button class="profile-button">
+                        <i class="fal fa-user"></i>
+                    </button>
+                </div>
+
+                <!-- Content Area -->
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </main>
+        </div>
+    </form>
+
+    <script>
+        // Lấy file hiện tại
+        const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+
+        document.querySelectorAll('.sidebar .nav-item').forEach(link => {
+            const hrefPage = link.getAttribute('href');
+            if (hrefPage && hrefPage.toLowerCase() === currentPage) {
+                link.classList.add('active');
+            }
+        });
+
+        // Tạo map ánh xạ từ file -> tiêu đề breadcrumb
+        const breadcrumbMap = {
+            'productcategory.aspx': 'Quản lý danh mục sản phẩm',
+            'ad_dash.aspx': 'Trang tổng quan',
+            'ad_category.aspx': 'Quản lý danh mục',
+            'ad_product.aspx': 'Quản lý sản phẩm',
+            'ad_prodetail.aspx': 'Thông tin đơn hàng',
+            // Thêm các trang khác nếu cần
+        };
+
+        // Hiển thị tiêu đề tương ứng hoặc fallback mặc định
+        const breadcrumbTitle = breadcrumbMap[currentPage] || 'Trang không xác định';
+        document.getElementById('breadcrumbTitle').textContent = breadcrumbTitle;
+    </script>
+
+
+</body>
+</html>

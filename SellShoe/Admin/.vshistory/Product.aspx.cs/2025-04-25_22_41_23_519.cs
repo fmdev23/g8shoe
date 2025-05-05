@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace SellShoe.Admin
+{
+    public partial class Product : System.Web.UI.Page
+    {
+        public QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
+        public List<tb_Product> listSP = new List<tb_Product>();
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            loadData();
+        }
+
+        // Load danh sách sản phẩm
+        void loadData()
+        {
+            var data = from q in db.tb_Products
+                       where q.IsActive == true
+                       select q;
+            if (data != null && data.Count() > 0)
+            {
+                listSP = data.ToList();
+            }
+        }
+
+        // WebMethod để thêm/sửa danh mục sản phẩm
+        [WebMethod]
+        public static string SaveCategory(CategoryModel category)
+        {
+            try
+            {
+                using (var db = new QuanLyBanGiayDataContext())
+                {
+                    if (category.id == 0)
+                    {
+                        // THÊM MỚI
+                        var newCategory = new tb_ProductCategory
+                        {
+                            Title = category.title,
+                            Description = category.description ?? "",
+                            Alias = category.alias,
+                            CreatedDate = DateTime.Now,
+                            ModifiedDate = DateTime.Now,   // << BẮT BUỘC CÓ
+                            CreatedBy = "admin",
+                            ModifierBy = "admin",
+                            Icon = "",
+                            SeoTitle = category.title, // Hoặc để ""
+                            SeoDescription = category.description ?? "",
+                            SeoKeywords = ""
+                        };
+                        db.tb_ProductCategories.InsertOnSubmit(newCategory);
+                    }
+                    else
+                    {
+                        // CHỈNH SỬA
+                        var existingCategory = db.tb_ProductCategories.SingleOrDefault(c => c.id == category.id);
+                        if (existingCategory != null)
+                        {
+                            existingCategory.Title = category.title;
+                            existingCategory.Description = category.description ?? "";
+                            existingCategory.Alias = category.alias;
+                            existingCategory.ModifiedDate = DateTime.Now;
+                            existingCategory.ModifierBy = "admin";
+                            existingCategory.SeoTitle = category.title;
+                            existingCategory.SeoDescription = category.description ?? "";
+                            existingCategory.SeoKeywords = "";
+                        }
+                        else
+                        {
+                            return "not found";
+                        }
+                    }
+
+                    db.SubmitChanges();
+                    return "success";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "error: " + ex.ToString(); // để debug lỗi kỹ hơn
+            }
+        }
+
+        // WebMethod để xóa danh mục sản phẩm
+        [WebMethod]
+        public static string DeleteCategory(int id)
+        {
+            using (var db = new QuanLyBanGiayDataContext())
+            {
+                var category = db.tb_ProductCategories.SingleOrDefault(c => c.id == id);
+                if (category != null)
+                {
+                    db.tb_ProductCategories.DeleteOnSubmit(category);
+                    db.SubmitChanges();
+                    return "success";
+                }
+                return "not found";
+            }
+        }
+
+    }
+}

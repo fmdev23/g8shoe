@@ -1,0 +1,105 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.master.cs" Inherits="SellShoe.Home" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G8Shoe | Trang chủ</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <form id="form1" runat="server">
+        <section id="header">
+            <a href="index.html" class="logo">
+                <img src="../img/logo.png" class="logo" alt="logo">
+            </a>
+
+            <div class="header-right">
+                <ul id="navbar">
+                    <li><a class="active" href="index.html">Trang Chủ</a></li>
+                    <li><a href="shop.html">Sản Phẩm</a></li>
+                    <li><a href="about.html">Giới Thiệu</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                    <li class="checkout">
+                        <a href="cart.html">
+                            <i class="far fa-shopping-cart"></i>
+                            <span id="checkout_items" class="checkout_items">2</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Đăng nhập / Đăng ký -->
+                <div class="sigin_regi">
+                    <a href="login.html">Đăng nhập</a>
+                    <a href="login.html">Đăng ký</a>
+                </div>
+            </div>
+        </section>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+        <!-- đky khuyến mãi -->
+        <section id="newsletter" class="section-p1 section-m1">
+            <div class="newstext">
+                <h4>Nhận Khuyến Mãi</h4>
+                <p>Đăng ký nhận khuyến mãi qua Email và <span>ưu đãi đặc biệt sớm nhất.</span></p>
+            </div>
+            <div class="form">
+                <input type="email" placeholder="Email của bạn" required>
+                <button type="submit" class="normal" value="Submit">Đăng Ký</button>
+            </div>
+        </section>
+
+        <footer class="footer section-p1">
+            <div class="section__container footer__container">
+                <div class="footer__col">
+                    <img class="logo" src="../img/logo.png" alt="">
+                    <h3>G8shoe - Great Shoe</h3>
+
+                    <p>
+                        "G8shoe – Where Every Step Becomes Your Signature. Lightweight Innovation, Timeless Style."
+                    </p>
+                    <p>
+                        Every Step Becomes Your Signature: Nhấn mạnh cá tính và sự độc đáo, mỗi bước đi thành dấu ấn riêng.<br>
+                        Lightweight Innovation: Phù hợp cho cả thể thao và thời trang.<br>
+                        Timeless Style: Thiết kế sang trọng, vượt xu hướng, đi cùng bạn mọi nơi.
+                    </p>
+                </div>
+                <div class="footer__col">
+                    <h4>Thông tin</h4>
+                    <p>Giới thiệu</p>
+                    <p>Thành viên</p>
+                    <p>Liên hệ</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Chính sách</h4>
+                    <p>FAQs</p>
+                    <p>Điều khoản</p>
+                    <p>Bảo mật</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Nền tảng</h4>
+                    <p>Truyền thông</p>
+                    <p>Trung tâm hỗ trợ</p>
+                    <p>Đối tác tin cậy</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Theo dõi chúng tôi</h4>
+                    <div class="footer__socials">
+                        <i class="fab fa-facebook-f"><a href="">Facebook</a></i>
+                        <i class="fab fa-instagram"><a href="">Instagram</a></i>
+                        <i class="fab fa-twitter"><a href="">Twitter</a></i>
+                    </div>
+                </div>
+        </footer>
+
+        <div class="footer__bar">
+            © 2025 <a href="index.html">G8Shoe</a>. All rights reserved.
+        </div>
+    </form>
+</body>
+</html>
