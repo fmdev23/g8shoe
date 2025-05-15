@@ -13,18 +13,30 @@ namespace SellShoe
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Không cần xử lý gì thêm khi load lần đầu
+            if (Request.QueryString["logout"] == "true")
+            {
+                Session["user"] = null;
+                Response.Redirect("UserAccount.aspx");
+            }
         }
 
-        /// <summary>
         /// Xử lý đăng ký tài khoản
-        /// </summary>
         protected void btnRegister_Click(object sender, EventArgs e)
         {
             string fullName = txtFullName.Text.Trim();
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text.Trim();
             string confirmPassword = txtConfirmPassword.Text.Trim();
+
+            // Kiểm tra dữ liệu không được để trống
+            if (string.IsNullOrEmpty(fullName) ||
+                string.IsNullOrEmpty(email) ||
+                string.IsNullOrEmpty(password) ||
+                string.IsNullOrEmpty(confirmPassword))
+            {
+                Response.Write("<script>alert('Vui lòng điền đầy đủ thông tin trước khi đăng ký.');</script>");
+                return;
+            }
 
             // Kiểm tra xác nhận mật khẩu
             if (password != confirmPassword)
@@ -48,7 +60,7 @@ namespace SellShoe
                 {
                     FullName = fullName,
                     Email = email,
-                    Password = password, // Bạn có thể hash ở đây nếu muốn bảo mật hơn
+                    Password = password,
                     CreatedAt = DateTime.Now
                 };
 
@@ -64,9 +76,7 @@ namespace SellShoe
             }
         }
 
-        /// <summary>
         /// Xử lý đăng nhập
-        /// </summary>
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             string email = txtLoginEmail.Text.Trim();
@@ -85,7 +95,7 @@ namespace SellShoe
             if (user != null)
             {
                 // Đăng nhập thành công
-                Session["user"] = user.FullName; // Hoặc user.ID nếu cần
+                Session["user"] = user.FullName;
                 Response.Redirect("Home.aspx");
             }
             else
@@ -94,9 +104,7 @@ namespace SellShoe
             }
         }
 
-        /// <summary>
         /// Hiển thị thông báo dạng alert + xử lý chuyển form nếu cần
-        /// </summary>
         private void ShowMessage(string message, bool redirect = false)
         {
             string script = $"alert('{message}');";

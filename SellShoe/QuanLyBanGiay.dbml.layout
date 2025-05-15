@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.75, 12.625" name="QuanLyBanGiay">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.75, 12.875" name="QuanLyBanGiay">
   <DataContextMoniker Name="/QuanLyBanGiayDataContext" />
   <nestedChildShapes>
     <classShape Id="1c4b7fdb-a4db-4d62-a836-b7b888ddcb2e" absoluteBounds="13.25, 4.125, 2, 3.3093082682291666">
@@ -33,7 +33,7 @@
         <classShapeMoniker Id="32c7a40a-5a6c-4e66-8754-eb0667b73b0f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 5.53929768880208); (8.75 : 5.53929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.5 : 5.63869466145833); (8.75 : 5.63869466145833)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/QuanLyBanGiayDataContext/tb_Product/tb_Product_tb_ProductImage" />
       <nodes>
         <classShapeMoniker Id="32c7a40a-5a6c-4e66-8754-eb0667b73b0f" />
@@ -77,36 +77,55 @@
         <classShapeMoniker Id="239cce91-6e38-4100-b6a6-417445438db1" />
       </nodes>
     </associationConnector>
-    <classShape Id="76ec11a4-084a-42de-b3fd-17466e3fc350" absoluteBounds="8.875, 8.625, 2, 3.6939111328124987">
+    <classShape Id="76ec11a4-084a-42de-b3fd-17466e3fc350" absoluteBounds="8.875, 8.875, 2, 3.6939111328124987">
       <DataClassMoniker Name="/QuanLyBanGiayDataContext/tb_Order" />
       <nestedChildShapes>
-        <elementListCompartment Id="c42a7adf-5534-469b-8ff1-bcefbf76ad9a" absoluteBounds="8.89, 9.085, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c42a7adf-5534-469b-8ff1-bcefbf76ad9a" absoluteBounds="8.89, 9.335, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ac48b14a-adf4-443b-b438-c314c10af7a1" absoluteBounds="8.75, 6.5, 2, 1.7708968098958344">
-      <DataClassMoniker Name="/QuanLyBanGiayDataContext/tb_OrderDetail" />
-      <nestedChildShapes>
-        <elementListCompartment Id="e38be012-ac05-4f29-9056-48ba9a563fa4" absoluteBounds="8.765, 6.9600000000000009, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(9.8125 : 8.625); (9.8125 : 8.27089680989583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/QuanLyBanGiayDataContext/tb_Order/tb_Order_tb_OrderDetail" />
-      <nodes>
-        <classShapeMoniker Id="76ec11a4-084a-42de-b3fd-17466e3fc350" />
-        <classShapeMoniker Id="ac48b14a-adf4-443b-b438-c314c10af7a1" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 7.38544840494792); (8.75 : 7.38544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/QuanLyBanGiayDataContext/tb_Product/tb_Product_tb_OrderDetail" />
-      <nodes>
-        <classShapeMoniker Id="32c7a40a-5a6c-4e66-8754-eb0667b73b0f" />
-        <classShapeMoniker Id="ac48b14a-adf4-443b-b438-c314c10af7a1" />
-      </nodes>
-    </associationConnector>
     <classShape Id="457772aa-6540-4710-b40e-023f4917d7a8" absoluteBounds="4, 3, 2, 1.7708968098958331">
       <DataClassMoniker Name="/QuanLyBanGiayDataContext/tb_User" />
       <nestedChildShapes>
         <elementListCompartment Id="b59c6b22-54f0-40fe-9a1e-7bc95d237aa6" absoluteBounds="4.015, 3.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7e2033da-f13b-4ae5-a015-a0ff5acfa619" absoluteBounds="8.875, 6.625, 2, 1.9631982421875">
+      <DataClassMoniker Name="/QuanLyBanGiayDataContext/tb_OrderDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="60fdb3d4-9470-411d-831e-000737f98843" absoluteBounds="8.89, 7.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.875 : 8.875); (9.875 : 8.5881982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/QuanLyBanGiayDataContext/tb_Order/tb_Order_tb_OrderDetail" />
+      <nodes>
+        <classShapeMoniker Id="76ec11a4-084a-42de-b3fd-17466e3fc350" />
+        <classShapeMoniker Id="7e2033da-f13b-4ae5-a015-a0ff5acfa619" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 7.60659912109375); (8.875 : 7.60659912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/QuanLyBanGiayDataContext/tb_Product/tb_Product_tb_OrderDetail" />
+      <nodes>
+        <classShapeMoniker Id="32c7a40a-5a6c-4e66-8754-eb0667b73b0f" />
+        <classShapeMoniker Id="7e2033da-f13b-4ae5-a015-a0ff5acfa619" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="700042c5-b6c1-4d80-a1df-d5c87260474b" absoluteBounds="11, 5.375, 2, 1.9631982421875">
+      <DataClassMoniker Name="/QuanLyBanGiayDataContext/tb_OrderStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b53a6a2a-0b1d-4528-9f52-c37b4e3dc256" absoluteBounds="11.015, 5.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(10.875 : 10.7219555664062); (12 : 10.7219555664062); (12 : 7.3381982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/QuanLyBanGiayDataContext/tb_Order/tb_Order_tb_OrderStatus" />
+      <nodes>
+        <classShapeMoniker Id="76ec11a4-084a-42de-b3fd-17466e3fc350" />
+        <classShapeMoniker Id="700042c5-b6c1-4d80-a1df-d5c87260474b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="984eff44-2117-4a11-b259-c0ba3f5987e7" absoluteBounds="6.875, 2.875, 2, 1.3862939453125">
+      <DataClassMoniker Name="/QuanLyBanGiayDataContext/tb_AccountAdmin" />
+      <nestedChildShapes>
+        <elementListCompartment Id="de14a9af-a660-4bcb-9b64-3128b6f7594c" absoluteBounds="6.89, 3.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

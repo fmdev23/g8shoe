@@ -15,96 +15,104 @@ namespace SellShoe.Admin
     public partial class ProductCategory : System.Web.UI.Page
     {
         public QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
-        public List<tb_ProductCategory> listCategory = new List<tb_ProductCategory>();
+        public static List<tb_ProductCategory> listCategory = new List<tb_ProductCategory>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadCategories();
+            if (!IsPostBack)
+            {
+                LoadCategories();
+            }
         }
 
         // Load danh mục sản phẩm
         void LoadCategories()
         {
-            var data = from q in db.tb_ProductCategories
-                       select q;
-            if (data != null && data.Count() > 0)
-            {
-                listCategory = data.ToList();
-            }
+            var list = db.tb_ProductCategories.OrderBy(c => c.id).ToList();
+            gvCategory.DataSource = list;
+            gvCategory.DataBind();
         }
 
-        // WebMethod để thêm/sửa danh mục sản phẩm
-        [WebMethod]
-        public static string SaveCategory(CategoryModel category)
+        protected void gvCategory_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            try
-            {
-                using (var db = new QuanLyBanGiayDataContext())
-                {
-                    if (category.id == 0)
-                    {
-                        // THÊM MỚI
-                        var newCategory = new tb_ProductCategory
-                        {
-                            Title = category.title,
-                            Description = category.description ?? "",
-                            Alias = category.alias,
-                            CreatedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,   // << BẮT BUỘC CÓ
-                            CreatedBy = "admin",
-                            ModifierBy = "admin",
-                            Icon = "",
-                            SeoTitle = category.title, // Hoặc để ""
-                            SeoDescription = category.description ?? "",
-                            SeoKeywords = ""
-                        };
-                        db.tb_ProductCategories.InsertOnSubmit(newCategory);
-                    }
-                    else
-                    {
-                        // CHỈNH SỬA
-                        var existingCategory = db.tb_ProductCategories.SingleOrDefault(c => c.id == category.id);
-                        if (existingCategory != null)
-                        {
-                            existingCategory.Title = category.title;
-                            existingCategory.Description = category.description ?? "";
-                            existingCategory.Alias = category.alias;
-                            existingCategory.ModifiedDate = DateTime.Now;
-                            existingCategory.ModifierBy = "admin";
-                            existingCategory.SeoTitle = category.title;
-                            existingCategory.SeoDescription = category.description ?? "";
-                            existingCategory.SeoKeywords = "";
-                        }
-                        else
-                        {
-                            return "not found";
-                        }
-                    }
-
-                    db.SubmitChanges();
-                    return "success";
-                }
-            }
-            catch (Exception ex)
-            {
-                return "error: " + ex.ToString(); // để debug lỗi kỹ hơn
-            }
+            gvCategory.EditIndex = e.NewEditIndex;
+            LoadCategories();
         }
 
-        // WebMethod để xóa danh mục sản phẩm
-        [WebMethod]
-        public static string DeleteCategory(int id)
+        protected void gvCategory_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            using (var db = new QuanLyBanGiayDataContext())
+            gvCategory.EditIndex = -1;
+            LoadCategories();
+        }
+
+        protected void gvCategory_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            int id = (int)gvCategory.DataKeys[e.RowIndex].Value;
+            GridViewRow row = gvCategory.Rows[e.RowIndex];
+
+            TextBox txtTitle = (TextBox)row.FindControl("txtTitle");
+            TextBox txtDescription = (TextBox)row.FindControl("txtDescription");
+            TextBox txtAlias = (TextBox)row.FindControl("txtAlias");
+
+            var cate = db.tb_ProductCategories.SingleOrDefault(c => c.id == id);
+            if (cate != null)
             {
-                var category = db.tb_ProductCategories.SingleOrDefault(c => c.id == id);
-                if (category != null)
-                {
-                    db.tb_ProductCategories.DeleteOnSubmit(category);
-                    db.SubmitChanges();
-                    return "success";
-                }
-                return "not found";
+                cate.Title = txtTitle.Text.Trim();
+                cate.Description = txtDescription.Text.Trim();
+                cate.Alias = txtAlias.Text.Trim();
+                cate.ModifiedDate = DateTime.Now;
+
+                db.SubmitChanges();
             }
+
+            gvCategory.EditIndex = -1;
+            LoadCategories();
+        }
+
+        protected void gvCategory_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int id = (int)gvCategory.DataKeys[e.RowIndex].Value;
+            var cate = db.tb_ProductCategories.SingleOrDefault(c => c.id == id);
+            if (cate != null)
+            {
+                db.tb_ProductCategories.DeleteOnSubmit(cate);
+                db.SubmitChanges();
+            }
+
+            LoadCategories();
+        }
+
+        protected void btnSaveCategory_Click(object sender, EventArgs e)
+        {
+            // Lấy dữ liệu từ control
+            string title = txtModalTitle.Text.Trim();
+            string description = txtModalDescription.Text.Trim();
+            string alias = txtModalAlias.Text.Trim();
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                var newCate = new tb_ProductCategory
+                {
+                    Title = title,
+                    Description = description,
+                    Alias = alias,
+                    CreatedDate = DateTime.Now, 
+                    ModifiedDate = DateTime.Now 
+                };
+
+                db.tb_ProductCategories.InsertOnSubmit(newCate);
+                db.SubmitChanges();
+
+                LoadCategories();
+            }
+
+            // Reset form
+            txtModalTitle.Text = "";
+            txtModalDescription.Text = "";
+            txtModalAlias.Text = "";
+
+            // Ẩn modal
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModal", "closeModal();", true);
         }
 
         public class CategoryModel
@@ -114,7 +122,6 @@ namespace SellShoe.Admin
             public string description { get; set; }
             public string alias { get; set; }
         }
-
-
     }
+
 }

@@ -1,0 +1,125 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="SellShoe.Admin.Admin" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <link rel="stylesheet" href="~/Admin/admin.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <%-- Placeholder để mỗi trang .aspx tự thêm CSS riêng nếu cần --%>
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server" />
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="app-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="logo-container">
+                    <h1>G8Shoe | ADMIN</h1>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li>
+                            <a href="Dash.aspx" class="nav-item">
+                                <i class="fad fa-th-large"></i>
+                                <span>Dữ liệu</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ProductCategory.aspx" class="nav-item">
+                                <i class="fad fa-list-ul"></i>
+                                <span>Danh mục</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Product.aspx" class="nav-item">
+                                <i class="fad fa-shopping-bag"></i>
+                                <span>Sản phẩm</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="OrderDetail.aspx" class="nav-item">
+                                <i class="fad fa-shopping-cart"></i>
+                                <span>Đơn hàng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Contact.aspx" class="nav-item">
+                                <i class="fad fa-star-half-alt"></i>
+                                <span>Phản hồi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Team.aspx" class="nav-item">
+                                <i class="fad fa-users"></i>
+                                <span>Thành viên</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="sidebar-divider"></div>
+                    <ul>
+                        <li>
+                            <a href="../home.aspx" class="nav-item">
+                                <i class="fad fa-sign-out"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="ad_dash.aspx">Admin</a>
+                    <i class="fad fa-chevron-right"></i>
+                    <span id="breadcrumbTitle">Đang tải...</span>
+                </div>
+
+                <!-- Content Area -->
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </main>
+        </div>
+    </form>
+
+    <script>
+        // Lấy file hiện tại
+        const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+
+        document.querySelectorAll('.sidebar .nav-item').forEach(link => {
+            const hrefPage = link.getAttribute('href');
+            if (hrefPage && hrefPage.toLowerCase() === currentPage) {
+                link.classList.add('active');
+            }
+        });
+
+        // Tạo map ánh xạ từ file -> tiêu đề breadcrumb
+        const breadcrumbMap = {
+            'productcategory.aspx': 'Quản lý danh mục sản phẩm',
+            'dash.aspx': 'Dữ liệu',
+            'product.aspx': 'Quản lý sản phẩm',
+            'orderdetail.aspx': 'Thông tin đơn hàng',
+            'contact.aspx': 'Phản hồi từ khách hàng',
+            'team.aspx': 'Quản lý thành viên'
+            // Thêm các trang khác nếu cần
+        };
+
+        // Hiển thị tiêu đề tương ứng hoặc fallback mặc định
+        const breadcrumbTitle = breadcrumbMap[currentPage] || 'Trang không xác định';
+        document.getElementById('breadcrumbTitle').textContent = breadcrumbTitle;
+    </script>
+
+
+</body>
+</html>

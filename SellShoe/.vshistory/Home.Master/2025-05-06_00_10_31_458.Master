@@ -1,0 +1,142 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.master.cs" Inherits="SellShoe.Home" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G8Shoe</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- Header -->
+        <header class="header">
+            <!-- Main Navigation -->
+            <div class="main_nav_container">
+                <div class="container">
+                    <div class="nav_wrapper">
+                        <div class="logo_container">
+                            <img src="../img/logo.png" alt="G8shoe Logo">
+                        </div>
+                        <nav class="navbar">
+                            <ul class="navbar_menu">
+
+                                <%for (int i = 0; i < listDM.Count; i++)
+                                    { %>
+                                <li><a href="<%=listDM[i].Alias %>"><%=listDM[i].Title %></a></li>
+                                <% } %>
+                            </ul>
+
+                            <ul class="navbar_user">
+                                <li class="user-dropdown">
+                                    <a href="UserAccount.aspx" class="user-link">
+                                        <i class="fal fa-user"></i>
+                                        <asp:Label ID="lblUserName" runat="server" CssClass="username-label" Text="Tài khoản"></asp:Label>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <asp:PlaceHolder ID="phLogout" runat="server" Visible="false">
+                                            <li><a href="#" onclick="logout(); return false;">Đăng xuất</a></li>
+                                        </asp:PlaceHolder>
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <!-- đky khuyến mãi -->
+        <section id="newsletter" class="section-p1 section-m1">
+            <div class="newstext">
+                <h4>Nhận Khuyến Mãi</h4>
+                <p>Đăng ký nhận khuyến mãi qua Email và <span>ưu đãi đặc biệt sớm nhất.</span></p>
+            </div>
+            <div class="form">
+                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Email của bạn" />
+                <asp:Button ID="Button1" runat="server" CssClass="normal" Text="Đăng Ký" OnClick="Newsletter_Submit_Click" />
+
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer section-p1">
+            <div class="section__container footer__container">
+                <div class="footer__col">
+                    <img class="logo" src="../img/logo.png" alt="">
+                    <h3>G8shoe - Great Shoe</h3>
+
+                    <p>
+                        "G8shoe – Where Every Step Becomes Your Signature. Lightweight Innovation, Timeless Style."
+                    </p>
+                    <p>
+                        Every Step Becomes Your Signature: Nhấn mạnh cá tính và sự độc đáo, mỗi bước đi thành dấu ấn riêng.<br>
+                        Lightweight Innovation: Phù hợp cho cả thể thao và thời trang.<br>
+                        Timeless Style: Thiết kế sang trọng, vượt xu hướng, đi cùng bạn mọi nơi.
+                    </p>
+                </div>
+                <div class="footer__col">
+                    <h4>Thông tin</h4>
+                    <p>Giới thiệu</p>
+                    <p>Thành viên</p>
+                    <p>Liên hệ</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Chính sách</h4>
+                    <p>FAQs</p>
+                    <p>Điều khoản</p>
+                    <p>Bảo mật</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Nền tảng</h4>
+                    <p>Truyền thông</p>
+                    <p>Trung tâm hỗ trợ</p>
+                    <p>Đối tác tin cậy</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Theo dõi chúng tôi</h4>
+                    <div class="footer__socials">
+                        <i class="fab fa-facebook-f"><a href="#">Facebook</a></i>
+                        <i class="fab fa-instagram"><a href="#">Instagram</a></i>
+                        <i class="fab fa-twitter"><a href="#">Twitter</a></i>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="footer__bar">
+            © 2025 <a href="Home.aspx">G8Shoe</a>. All rights reserved.
+        </div>
+
+        <script>
+            function logout() {
+                if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+                    window.location.href = "?logout=true";
+                }
+            }
+        </script>
+
+
+
+    </form>
+</body>
+</html>

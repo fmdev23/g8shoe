@@ -60,12 +60,18 @@ namespace SellShoe
     partial void Inserttb_Order(tb_Order instance);
     partial void Updatetb_Order(tb_Order instance);
     partial void Deletetb_Order(tb_Order instance);
-    partial void Inserttb_OrderDetail(tb_OrderDetail instance);
-    partial void Updatetb_OrderDetail(tb_OrderDetail instance);
-    partial void Deletetb_OrderDetail(tb_OrderDetail instance);
     partial void Inserttb_User(tb_User instance);
     partial void Updatetb_User(tb_User instance);
     partial void Deletetb_User(tb_User instance);
+    partial void Inserttb_OrderDetail(tb_OrderDetail instance);
+    partial void Updatetb_OrderDetail(tb_OrderDetail instance);
+    partial void Deletetb_OrderDetail(tb_OrderDetail instance);
+    partial void Inserttb_OrderStatus(tb_OrderStatus instance);
+    partial void Updatetb_OrderStatus(tb_OrderStatus instance);
+    partial void Deletetb_OrderStatus(tb_OrderStatus instance);
+    partial void Inserttb_AccountAdmin(tb_AccountAdmin instance);
+    partial void Updatetb_AccountAdmin(tb_AccountAdmin instance);
+    partial void Deletetb_AccountAdmin(tb_AccountAdmin instance);
     #endregion
 		
 		public QuanLyBanGiayDataContext(string connection) : 
@@ -93,7 +99,7 @@ namespace SellShoe
 		}
 
         public QuanLyBanGiayDataContext()
-    : base(System.Configuration.ConfigurationManager.ConnectionStrings["WebBanGiayConnectionString"].ConnectionString)
+    : base(System.Configuration.ConfigurationManager.ConnectionStrings["WebBanGiayConnectionString1"].ConnectionString)
         {
         }
 
@@ -104,8 +110,6 @@ namespace SellShoe
 				return this.GetTable<tb_Category>();
 			}
 		}
-
-
 		
 		public System.Data.Linq.Table<tb_Product> tb_Products
 		{
@@ -179,6 +183,14 @@ namespace SellShoe
 			}
 		}
 		
+		public System.Data.Linq.Table<tb_User> tb_Users
+		{
+			get
+			{
+				return this.GetTable<tb_User>();
+			}
+		}
+		
 		public System.Data.Linq.Table<tb_OrderDetail> tb_OrderDetails
 		{
 			get
@@ -187,11 +199,19 @@ namespace SellShoe
 			}
 		}
 		
-		public System.Data.Linq.Table<tb_User> tb_Users
+		public System.Data.Linq.Table<tb_OrderStatus> tb_OrderStatus
 		{
 			get
 			{
-				return this.GetTable<tb_User>();
+				return this.GetTable<tb_OrderStatus>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tb_AccountAdmin> tb_AccountAdmins
+		{
+			get
+			{
+				return this.GetTable<tb_AccountAdmin>();
 			}
 		}
 	}
@@ -2803,6 +2823,8 @@ namespace SellShoe
 		
 		private EntitySet<tb_OrderDetail> _tb_OrderDetails;
 		
+		private EntitySet<tb_OrderStatus> _tb_OrderStatus;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2842,6 +2864,7 @@ namespace SellShoe
 		public tb_Order()
 		{
 			this._tb_OrderDetails = new EntitySet<tb_OrderDetail>(new Action<tb_OrderDetail>(this.attach_tb_OrderDetails), new Action<tb_OrderDetail>(this.detach_tb_OrderDetails));
+			this._tb_OrderStatus = new EntitySet<tb_OrderStatus>(new Action<tb_OrderStatus>(this.attach_tb_OrderStatus), new Action<tb_OrderStatus>(this.detach_tb_OrderStatus));
 			OnCreated();
 		}
 		
@@ -3158,6 +3181,19 @@ namespace SellShoe
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tb_Order_tb_OrderStatus", Storage="_tb_OrderStatus", ThisKey="id", OtherKey="OrderID")]
+		public EntitySet<tb_OrderStatus> tb_OrderStatus
+		{
+			get
+			{
+				return this._tb_OrderStatus;
+			}
+			set
+			{
+				this._tb_OrderStatus.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3189,245 +3225,17 @@ namespace SellShoe
 			this.SendPropertyChanging();
 			entity.tb_Order = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tb_OrderDetail")]
-	public partial class tb_OrderDetail : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _OrderId;
-		
-		private int _ProductId;
-		
-		private decimal _Price;
-		
-		private int _Quantity;
-		
-		private EntityRef<tb_Order> _tb_Order;
-		
-		private EntityRef<tb_Product> _tb_Product;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnOrderIdChanging(int value);
-    partial void OnOrderIdChanged();
-    partial void OnProductIdChanging(int value);
-    partial void OnProductIdChanged();
-    partial void OnPriceChanging(decimal value);
-    partial void OnPriceChanged();
-    partial void OnQuantityChanging(int value);
-    partial void OnQuantityChanged();
-    #endregion
-		
-		public tb_OrderDetail()
+		private void attach_tb_OrderStatus(tb_OrderStatus entity)
 		{
-			this._tb_Order = default(EntityRef<tb_Order>);
-			this._tb_Product = default(EntityRef<tb_Product>);
-			OnCreated();
+			this.SendPropertyChanging();
+			entity.tb_Order = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
+		private void detach_tb_OrderStatus(tb_OrderStatus entity)
 		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderId", DbType="Int NOT NULL")]
-		public int OrderId
-		{
-			get
-			{
-				return this._OrderId;
-			}
-			set
-			{
-				if ((this._OrderId != value))
-				{
-					if (this._tb_Order.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOrderIdChanging(value);
-					this.SendPropertyChanging();
-					this._OrderId = value;
-					this.SendPropertyChanged("OrderId");
-					this.OnOrderIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="Int NOT NULL")]
-		public int ProductId
-		{
-			get
-			{
-				return this._ProductId;
-			}
-			set
-			{
-				if ((this._ProductId != value))
-				{
-					if (this._tb_Product.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnProductIdChanging(value);
-					this.SendPropertyChanging();
-					this._ProductId = value;
-					this.SendPropertyChanged("ProductId");
-					this.OnProductIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Decimal(18,2) NOT NULL")]
-		public decimal Price
-		{
-			get
-			{
-				return this._Price;
-			}
-			set
-			{
-				if ((this._Price != value))
-				{
-					this.OnPriceChanging(value);
-					this.SendPropertyChanging();
-					this._Price = value;
-					this.SendPropertyChanged("Price");
-					this.OnPriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int NOT NULL")]
-		public int Quantity
-		{
-			get
-			{
-				return this._Quantity;
-			}
-			set
-			{
-				if ((this._Quantity != value))
-				{
-					this.OnQuantityChanging(value);
-					this.SendPropertyChanging();
-					this._Quantity = value;
-					this.SendPropertyChanged("Quantity");
-					this.OnQuantityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tb_Order_tb_OrderDetail", Storage="_tb_Order", ThisKey="OrderId", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public tb_Order tb_Order
-		{
-			get
-			{
-				return this._tb_Order.Entity;
-			}
-			set
-			{
-				tb_Order previousValue = this._tb_Order.Entity;
-				if (((previousValue != value) 
-							|| (this._tb_Order.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._tb_Order.Entity = null;
-						previousValue.tb_OrderDetails.Remove(this);
-					}
-					this._tb_Order.Entity = value;
-					if ((value != null))
-					{
-						value.tb_OrderDetails.Add(this);
-						this._OrderId = value.id;
-					}
-					else
-					{
-						this._OrderId = default(int);
-					}
-					this.SendPropertyChanged("tb_Order");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tb_Product_tb_OrderDetail", Storage="_tb_Product", ThisKey="ProductId", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public tb_Product tb_Product
-		{
-			get
-			{
-				return this._tb_Product.Entity;
-			}
-			set
-			{
-				tb_Product previousValue = this._tb_Product.Entity;
-				if (((previousValue != value) 
-							|| (this._tb_Product.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._tb_Product.Entity = null;
-						previousValue.tb_OrderDetails.Remove(this);
-					}
-					this._tb_Product.Entity = value;
-					if ((value != null))
-					{
-						value.tb_OrderDetails.Add(this);
-						this._ProductId = value.id;
-					}
-					else
-					{
-						this._ProductId = default(int);
-					}
-					this.SendPropertyChanged("tb_Product");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			this.SendPropertyChanging();
+			entity.tb_Order = null;
 		}
 	}
 	
@@ -3564,6 +3372,603 @@ namespace SellShoe
 					this._CreatedAt = value;
 					this.SendPropertyChanged("CreatedAt");
 					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tb_OrderDetail")]
+	public partial class tb_OrderDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _OrderId;
+		
+		private int _ProductId;
+		
+		private decimal _Price;
+		
+		private int _Quantity;
+		
+		private string _Size;
+		
+		private EntityRef<tb_Order> _tb_Order;
+		
+		private EntityRef<tb_Product> _tb_Product;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnOrderIdChanging(int value);
+    partial void OnOrderIdChanged();
+    partial void OnProductIdChanging(int value);
+    partial void OnProductIdChanged();
+    partial void OnPriceChanging(decimal value);
+    partial void OnPriceChanged();
+    partial void OnQuantityChanging(int value);
+    partial void OnQuantityChanged();
+    partial void OnSizeChanging(string value);
+    partial void OnSizeChanged();
+    #endregion
+		
+		public tb_OrderDetail()
+		{
+			this._tb_Order = default(EntityRef<tb_Order>);
+			this._tb_Product = default(EntityRef<tb_Product>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderId", DbType="Int NOT NULL")]
+		public int OrderId
+		{
+			get
+			{
+				return this._OrderId;
+			}
+			set
+			{
+				if ((this._OrderId != value))
+				{
+					if (this._tb_Order.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOrderIdChanging(value);
+					this.SendPropertyChanging();
+					this._OrderId = value;
+					this.SendPropertyChanged("OrderId");
+					this.OnOrderIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="Int NOT NULL")]
+		public int ProductId
+		{
+			get
+			{
+				return this._ProductId;
+			}
+			set
+			{
+				if ((this._ProductId != value))
+				{
+					if (this._tb_Product.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProductIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProductId = value;
+					this.SendPropertyChanged("ProductId");
+					this.OnProductIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Decimal(18,2) NOT NULL")]
+		public decimal Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int NOT NULL")]
+		public int Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this.OnQuantityChanging(value);
+					this.SendPropertyChanging();
+					this._Quantity = value;
+					this.SendPropertyChanged("Quantity");
+					this.OnQuantityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size", DbType="NVarChar(50)")]
+		public string Size
+		{
+			get
+			{
+				return this._Size;
+			}
+			set
+			{
+				if ((this._Size != value))
+				{
+					this.OnSizeChanging(value);
+					this.SendPropertyChanging();
+					this._Size = value;
+					this.SendPropertyChanged("Size");
+					this.OnSizeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tb_Order_tb_OrderDetail", Storage="_tb_Order", ThisKey="OrderId", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public tb_Order tb_Order
+		{
+			get
+			{
+				return this._tb_Order.Entity;
+			}
+			set
+			{
+				tb_Order previousValue = this._tb_Order.Entity;
+				if (((previousValue != value) 
+							|| (this._tb_Order.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tb_Order.Entity = null;
+						previousValue.tb_OrderDetails.Remove(this);
+					}
+					this._tb_Order.Entity = value;
+					if ((value != null))
+					{
+						value.tb_OrderDetails.Add(this);
+						this._OrderId = value.id;
+					}
+					else
+					{
+						this._OrderId = default(int);
+					}
+					this.SendPropertyChanged("tb_Order");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tb_Product_tb_OrderDetail", Storage="_tb_Product", ThisKey="ProductId", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public tb_Product tb_Product
+		{
+			get
+			{
+				return this._tb_Product.Entity;
+			}
+			set
+			{
+				tb_Product previousValue = this._tb_Product.Entity;
+				if (((previousValue != value) 
+							|| (this._tb_Product.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tb_Product.Entity = null;
+						previousValue.tb_OrderDetails.Remove(this);
+					}
+					this._tb_Product.Entity = value;
+					if ((value != null))
+					{
+						value.tb_OrderDetails.Add(this);
+						this._ProductId = value.id;
+					}
+					else
+					{
+						this._ProductId = default(int);
+					}
+					this.SendPropertyChanged("tb_Product");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tb_OrderStatus")]
+	public partial class tb_OrderStatus : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private int _OrderID;
+		
+		private string _StatusTitle;
+		
+		private string _StatusDetail;
+		
+		private System.Nullable<bool> _IsActive;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private EntityRef<tb_Order> _tb_Order;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnOrderIDChanging(int value);
+    partial void OnOrderIDChanged();
+    partial void OnStatusTitleChanging(string value);
+    partial void OnStatusTitleChanged();
+    partial void OnStatusDetailChanging(string value);
+    partial void OnStatusDetailChanged();
+    partial void OnIsActiveChanging(System.Nullable<bool> value);
+    partial void OnIsActiveChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    #endregion
+		
+		public tb_OrderStatus()
+		{
+			this._tb_Order = default(EntityRef<tb_Order>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderID", DbType="Int NOT NULL")]
+		public int OrderID
+		{
+			get
+			{
+				return this._OrderID;
+			}
+			set
+			{
+				if ((this._OrderID != value))
+				{
+					if (this._tb_Order.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOrderIDChanging(value);
+					this.SendPropertyChanging();
+					this._OrderID = value;
+					this.SendPropertyChanged("OrderID");
+					this.OnOrderIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusTitle", DbType="NVarChar(100)")]
+		public string StatusTitle
+		{
+			get
+			{
+				return this._StatusTitle;
+			}
+			set
+			{
+				if ((this._StatusTitle != value))
+				{
+					this.OnStatusTitleChanging(value);
+					this.SendPropertyChanging();
+					this._StatusTitle = value;
+					this.SendPropertyChanged("StatusTitle");
+					this.OnStatusTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusDetail", DbType="NVarChar(255)")]
+		public string StatusDetail
+		{
+			get
+			{
+				return this._StatusDetail;
+			}
+			set
+			{
+				if ((this._StatusDetail != value))
+				{
+					this.OnStatusDetailChanging(value);
+					this.SendPropertyChanging();
+					this._StatusDetail = value;
+					this.SendPropertyChanged("StatusDetail");
+					this.OnStatusDetailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit")]
+		public System.Nullable<bool> IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this.OnIsActiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsActive = value;
+					this.SendPropertyChanged("IsActive");
+					this.OnIsActiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tb_Order_tb_OrderStatus", Storage="_tb_Order", ThisKey="OrderID", OtherKey="id", IsForeignKey=true)]
+		public tb_Order tb_Order
+		{
+			get
+			{
+				return this._tb_Order.Entity;
+			}
+			set
+			{
+				tb_Order previousValue = this._tb_Order.Entity;
+				if (((previousValue != value) 
+							|| (this._tb_Order.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tb_Order.Entity = null;
+						previousValue.tb_OrderStatus.Remove(this);
+					}
+					this._tb_Order.Entity = value;
+					if ((value != null))
+					{
+						value.tb_OrderStatus.Add(this);
+						this._OrderID = value.id;
+					}
+					else
+					{
+						this._OrderID = default(int);
+					}
+					this.SendPropertyChanged("tb_Order");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tb_AccountAdmin")]
+	public partial class tb_AccountAdmin : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _IdAdmin;
+		
+		private string _TenBien;
+		
+		private string _GiaTri;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdAdminChanging(long value);
+    partial void OnIdAdminChanged();
+    partial void OnTenBienChanging(string value);
+    partial void OnTenBienChanged();
+    partial void OnGiaTriChanging(string value);
+    partial void OnGiaTriChanged();
+    #endregion
+		
+		public tb_AccountAdmin()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAdmin", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long IdAdmin
+		{
+			get
+			{
+				return this._IdAdmin;
+			}
+			set
+			{
+				if ((this._IdAdmin != value))
+				{
+					this.OnIdAdminChanging(value);
+					this.SendPropertyChanging();
+					this._IdAdmin = value;
+					this.SendPropertyChanged("IdAdmin");
+					this.OnIdAdminChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenBien", DbType="NVarChar(100)")]
+		public string TenBien
+		{
+			get
+			{
+				return this._TenBien;
+			}
+			set
+			{
+				if ((this._TenBien != value))
+				{
+					this.OnTenBienChanging(value);
+					this.SendPropertyChanging();
+					this._TenBien = value;
+					this.SendPropertyChanged("TenBien");
+					this.OnTenBienChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaTri", DbType="NVarChar(100)")]
+		public string GiaTri
+		{
+			get
+			{
+				return this._GiaTri;
+			}
+			set
+			{
+				if ((this._GiaTri != value))
+				{
+					this.OnGiaTriChanging(value);
+					this.SendPropertyChanging();
+					this._GiaTri = value;
+					this.SendPropertyChanged("GiaTri");
+					this.OnGiaTriChanged();
 				}
 			}
 		}

@@ -19,7 +19,7 @@
     <!-- Thông tin sản phẩm -->
     <div class="single-pro-details">
         <div class="breadcrumbs">
-            <a href="home.aspx"><span>Trang chủ</span></a>
+            <a href="home.aspx"><span>Trang Chủ</span></a>
             <i class="fad fa-chevron-right"></i>
             <span><%= danhMuc != null ? danhMuc.Title : "" %></span>
             <i class="fad fa-chevron-right"></i>
@@ -27,6 +27,7 @@
         </div>
 
         <h2><%= sanPham != null ? sanPham.Title : "" %></h2>
+        <input type="hidden" id="productId" value='<%= sanPham != null ? sanPham.id.ToString() : "" %>' />
         <div class="price-box">
             <span class="old-price"><%= sanPham != null ? ((int)sanPham.Price).ToString("N0") + "" : ""%></span>
             <span class="new-price"><%= sanPham != null ? ((int)sanPham.PriceSale).ToString("N0") + "" : ""%></span>
@@ -56,24 +57,24 @@
 
         <!-- Chọn size -->
         <div class="size-group">
-            <span class="size-option active">36</span>
-            <span class="size-option">37</span>
+            <span class="size-option active">37</span>
             <span class="size-option">38</span>
             <span class="size-option">39</span>
             <span class="size-option">40</span>
+            <span class="size-option">41</span>
+            <span class="size-option">42</span>
         </div>
+
 
         <!-- Chọn số lượng + nút giỏ -->
         <div class="quantity">
-            <!-- <span>Số lượng:</span> -->
             <div class="quantity_selector">
                 <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
                 <span id="quantity_value">1</span>
                 <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
             </div>
             <div class="red_button add_to_cart_button">
-                <a href="#" class="normal">Thêm vào giỏ hàng</a>
-
+                <a href="#" class="normal">Đặt hàng</a>
             </div>
         </div>
 
@@ -82,6 +83,7 @@
         <p><%=sanPham.Description %></p>
     </div>
 </section>
+
 
 <!-- Product Information Tabs -->
 <section class="product-tabs section-p1">
@@ -99,17 +101,12 @@
             <h3>Mô tả sản phẩm</h3>
             <p>Mã sản phẩm (SKU): <%=sanPham.ProductCode %></p>
             <p>GIÁ GỐC: <%=((int)sanPham.Price) %></p>
-            <p>SỐ LƯỢNG: <%=sanPham.Quantity + " Đôi"%></p>
+            <p>SỐ LƯỢNG HÀNG CÓ SẴN: <%=sanPham.Quantity + " Đôi"%></p>
             <p><%=sanPham.Description %></p>
             <p><%=sanPham.Detail %></p>
 
 
         </div>
-
-
-        <!--<div class="tab-pane" id="customer-photos">
-            <img src="<%= sanPham != null ? sanPham.Image : "" %>" width="20%" id="MainImg" alt="">
-        </div> -->
 
         <div class="tab-pane" id="customer-reviews">
 
@@ -189,14 +186,12 @@
 
 <section id="product-best-seller" class="section-p1 product-section">
     <div class="section_title">
-        <h2>BEST SELLER</h2>
+        <h2>DÀNH CHO BẠN</h2>
     </div>
     <div class="pro-container">
 
         <% for (int i = 0; i < listSP.Count; i++)
-            {
-                if (listSP[i].IsHot)
-                { %>
+            { %>
 
         <div class="pro">
             <a href="sproduct.aspx?id=<%= listSP[i].id %>">
@@ -228,10 +223,10 @@
                     </div>
 
                 </div>
-                <a href="#"><i class="fal fa-cart-plus cart"></i></a>
+                <a href="#"><i class="fad fa-wallet cart"></i></a>
         </div>
 
-        <%  } // end if
+        <%
             }     // end for %>
     </div>
 </section>
@@ -264,7 +259,7 @@
     function showSuccessToast() {
         Swal.fire({
             icon: 'success',
-            title: 'Cảm ơn bạn! Bạn đã gửi đánh giá thành công!',
+            title: 'Gửi đánh giá thành công!',
             showConfirmButton: false,
             timer: 5000
         });
@@ -294,6 +289,11 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+    var isLoggedIn = <%= Session["user"] != null ? "true" : "false" %>;
+</script>
+
 
 <script>
     // Xử lý chọn size
@@ -327,6 +327,28 @@
         quantityValue.textContent = quantity;
     });
 
+    // Xử lý click nút "Đặt hàng"
+    const orderBtn = document.querySelector('.add_to_cart_button');
+
+    orderBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        //Kiểm tra đã đăng nhập chưa
+        if (!isLoggedIn) {
+            alert("Bạn cần đăng nhập trước khi đặt hàng.");
+            window.location.href = "UserAccount.aspx";
+            return;
+        }
+
+        const productId = document.getElementById('productId')?.value || "";
+        const imageUrl = document.getElementById('MainImg')?.getAttribute('src') || "";
+        const title = document.querySelector('.single-pro-details h2')?.textContent.trim() || "";
+        const price = document.querySelector('.price-box .new-price')?.textContent.trim() || "";
+        const quantity = parseInt(document.getElementById('quantity_value')?.textContent || "1");
+
+        const url = `checkout.aspx?productId=${encodeURIComponent(productId)}&size=${encodeURIComponent(selectedSize)}&quantity=${encodeURIComponent(quantity)}&img=${encodeURIComponent(imageUrl)}&title=${encodeURIComponent(title)}&price=${encodeURIComponent(price)}`;
+
+        window.location.href = url;
+    });
 
     //Xử lý click các tab
     document.addEventListener("DOMContentLoaded", function () {
@@ -355,6 +377,7 @@
         });
     });
 
+    //rút gọn tên sản phẩm và format giá tiền
     document.addEventListener("DOMContentLoaded", function () {
         // Rút gọn tên sản phẩm
         document.querySelectorAll(".pro .des h5").forEach(el => {

@@ -6,10 +6,10 @@
     <p>Chúng tôi mang đến sự lựa chọn tốt nhất</p>
 
 </section>
-<!-- Hàng mới -->
+<!-- Toàn bộ sản phẩm -->
 <section id="product" class="section-p1 product-section">
 
-    <div class="pro-container">
+    <div class="pro-container" id="product-list">
         <% for (int i = 0; i < listProductWithRating.Count; i++)
             {
                 var avgRating = listProductWithRating[i].AverageRating ?? 0; // Nếu null thì gán 0
@@ -18,13 +18,14 @@
                 int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
         %>
 
-        <div class="pro">
+        <div class="pro" data-product> 
             <a href="sproduct.aspx?id=<%= listProductWithRating[i].Product.id %>">
-                <img src="<%= listProductWithRating[i].Product.Image %>" alt="">
+                <img src="<%= listProductWithRating[i].Product.Image %>" alt=""> 
                 <div class="des">
                     <h5><%= listProductWithRating[i].Product.Title %></h5>
-                    <span class="price-sale"><%= ((int)listProductWithRating[i].Product.Price) %></span>
-                    <h4 class="price"><%= ((int)listProductWithRating[i].Product.PriceSale) %></h4>
+                    <span class="price-sale"><%= string.Format("{0:N0}", ((int)listProductWithRating[i].Product.Price)).Replace(",", ".") %></span>
+                    
+                    <h4 class="price"><%= string.Format("{0:N0}", ((int)listProductWithRating[i].Product.PriceSale)).Replace(",", ".") %></h4> 
 
                     <div class="star">
                         <% 
@@ -43,7 +44,7 @@
                     </div>
 
                 </div>
-                <a href="#"><i class="fal fa-cart-plus cart"></i></a>
+                <a href="sproduct.aspx?id=<%= listProductWithRating[i].Product.id %>"><i class="fad fa-wallet cart"></i></a>
             </a>
         </div>
 
@@ -53,12 +54,9 @@
 </section>
 
 <section id="pagination" class="section-p1">
-    <a href="">1</a>
-    <a href="">2</a>
-    <a href=""><i class="fal fa-long-arrow-right"></i></a>
+    <div id="pagination-buttons"></div>
 </section>
 
-<script src="../js/script.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -72,11 +70,50 @@
             }
         });
 
-        // Format giá tiền
-        document.querySelectorAll('.price, .price-sale').forEach(el => {
-            let number = parseInt(el.innerText.replace(/\D/g, ''), 10);
-            el.innerText = number.toLocaleString('vi-VN');
-        });
-
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const pageSize = 15;
+        const products = document.querySelectorAll('[data-product]');
+        const totalProducts = products.length;
+        const totalPages = Math.ceil(totalProducts / pageSize);
+        const paginationDiv = document.getElementById("pagination-buttons");
+
+        function showPage(page) {
+            for (let i = 0; i < totalProducts; i++) {
+                products[i].style.display = (i >= (page - 1) * pageSize && i < page * pageSize) ? 'block' : 'none';
+            }
+
+            // Update active button
+            const buttons = paginationDiv.querySelectorAll('a');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if (buttons[page - 1]) buttons[page - 1].classList.add('active');
+
+            // Cuộn lên đầu khu vực sản phẩm
+            const productList = document.getElementById("product-list");
+            if (productList) {
+                productList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+
+        function createPagination() {
+            for (let i = 1; i <= totalPages; i++) {
+                const a = document.createElement("a");
+                a.href = "#";
+                a.textContent = i;
+                a.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    showPage(i);
+                });
+                paginationDiv.appendChild(a);
+            }
+        }
+
+        createPagination();
+        showPage(1); // Show first page on load
+    });
+</script>
+

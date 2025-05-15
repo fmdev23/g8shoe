@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace SellShoe.UserControl
+{
+    public partial class ProductCT : System.Web.UI.UserControl
+    {
+        public QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
+
+        public static List<ProductWithRating> listProductWithRating = new List<ProductWithRating>(); // danh sách sản phẩm với rating
+        public List<ProductWithRating> pagedProducts = new List<ProductWithRating>(); // sản phẩm phân trang
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            loadProduct();
+        }
+
+        void loadProduct()
+        {
+            if (data != null && data.Count() > 0)
+            {
+
+                // Tính Rating trung bình
+                listProductWithRating = (from p in db.tb_Products
+                                         where p.IsActive == true
+                                         select new ProductWithRating
+                                         {
+                                             Product = p,
+                                             AverageRating = (from rv in db.tb_Reviews
+                                                              where rv.ProductId == p.id
+                                                              select rv.Rating).Average()
+                                         }).ToList();
+            }
+        }
+
+        public class ProductWithRating
+        {
+            public tb_Product Product { get; set; } 
+            public double? AverageRating { get; set; } // Dùng double? (nullable)
+        }
+
+    }
+
+
+}

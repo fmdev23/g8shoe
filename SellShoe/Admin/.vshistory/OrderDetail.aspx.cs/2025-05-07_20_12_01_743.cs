@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace SellShoe.Admin
+{
+    public partial class OrderDetail : System.Web.UI.Page
+    {
+        public QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
+        public static List<tb_Order> listOD = new List<tb_Order>();
+        void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                loadOrder();
+            }
+        }
+
+        void loadOrder()
+        {
+            var data = db.tb_Orders
+                 .OrderByDescending(o => o.CreatedDate); // Sắp xếp mới nhất trước
+
+            if (data != null && data.Any())
+            {
+                listOD = data.ToList();
+            }
+
+        }
+
+        [WebMethod]
+        public static bool ToggleOrderStatus(int id)
+        {
+            try
+            {
+                QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
+                var order = db.tb_Orders.FirstOrDefault(o => o.id == id);
+                if (order != null)
+                {
+                    order.Status = (order.Status == 0) ? 1 : 0;
+                    order.ModifiedDate = DateTime.Now;
+                    db.SubmitChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+    }
+}

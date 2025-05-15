@@ -4,10 +4,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login & Registration</title>
-    <link rel="stylesheet" href="../css/log.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>G8Shoe | Tài khoản</title>
+    <link rel="stylesheet" href="../css/log.css" />
+    <link rel="icon" type="image/png" href="../img/fav.png" style="border-radius: 50%; width: 50%; height: 50%" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
 </head>
 <body>
@@ -45,10 +46,11 @@
                         <asp:TextBox ID="txtLoginEmail" runat="server" CssClass="asp-input" Placeholder="Email"></asp:TextBox>
                     </div>
 
-                    <div class="input-group">
-                        <i class="fal fa-eye-slash"></i>
-                        <asp:TextBox ID="txtLoginPassword" runat="server" CssClass="asp-input" TextMode="Password" Placeholder="Mật khẩu"></asp:TextBox>
+                    <div class="input-group password-group">
+                        <asp:TextBox ID="txtLoginPassword" runat="server" CssClass="asp-input password-input" TextMode="Password" Placeholder="Mật khẩu"></asp:TextBox>
+                        <i class="fal fa-eye-slash toggle-password" data-target="txtLoginPassword"></i>
                     </div>
+
 
                     <div class="forgot-password">
                         <a href="#">Quên mật khẩu?</a>
@@ -82,23 +84,24 @@
 
                     <div class="input-group">
                         <i class="fal fa-user-alt"></i>
-                        <asp:TextBox ID="txtFullName" runat="server" CssClass="asp-input" Placeholder="Họ tên" required="true"></asp:TextBox>
+                        <asp:TextBox ID="txtFullName" runat="server" CssClass="asp-input" Placeholder="Họ tên"></asp:TextBox>
                     </div>
 
                     <div class="input-group">
                         <i class="fal fa-envelope"></i>
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="asp-input" TextMode="Email" Placeholder="Email" required="true"></asp:TextBox>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="asp-input" TextMode="Email" Placeholder="Email"></asp:TextBox>
                     </div>
 
-                    <div class="input-group">
-                        <i class="fal fa-eye-slash"></i>
-                        <asp:TextBox ID="txtPassword" runat="server" CssClass="asp-input" TextMode="Password" Placeholder="Mật khẩu"></asp:TextBox>
+                    <div class="input-group password-group">
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="asp-input password-input" TextMode="Password" Placeholder="Mật khẩu"></asp:TextBox>
+                        <i class="fal fa-eye-slash toggle-password" data-target="txtPassword"></i>
                     </div>
 
-                    <div class="input-group">
-                        <i class="fal fa-eye-slash"></i>
-                        <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="asp-input" TextMode="Password" Placeholder="Xác nhận mật khẩu"></asp:TextBox>
+                    <div class="input-group password-group">
+                        <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="asp-input password-input" TextMode="Password" Placeholder="Xác nhận mật khẩu"></asp:TextBox>
+                        <i class="fal fa-eye-slash toggle-password" data-target="txtConfirmPassword"></i>
                     </div>
+
 
                     <asp:Button ID="btnRegister" runat="server" CssClass="btn-continue" Text="Đăng ký" OnClick="btnRegister_Click" />
 
@@ -144,6 +147,32 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggles = document.querySelectorAll(".toggle-password");
+
+            toggles.forEach(function (toggle) {
+                toggle.addEventListener("click", function () {
+                    const inputId = this.getAttribute("data-target");
+                    const input = document.getElementById(inputId);
+
+                    if (input) {
+                        if (input.type === "password") {
+                            input.type = "text";
+                            this.classList.remove("fa-eye-slash");
+                            this.classList.add("fa-eye");
+                        } else {
+                            input.type = "password";
+                            this.classList.remove("fa-eye");
+                            this.classList.add("fa-eye-slash");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
 
 
 </body>

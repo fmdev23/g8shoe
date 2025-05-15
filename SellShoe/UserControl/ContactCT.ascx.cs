@@ -67,24 +67,24 @@ namespace SellShoe.UserControl
 
                 // Hiển thị SweetAlert2
                 ScriptManager.RegisterStartupScript(this, GetType(), "SuccessMessage", @"
-            Swal.fire({
-                icon: 'success',
-                title: 'Gửi thành công!',
-                text: 'Cảm ơn bạn đã liên hệ với chúng tôi.',
-                confirmButtonText: 'Tiếp tục'
-            });
-        ", true);
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Gửi thành công!',
+                            text: 'Chúng tôi đã nhận được phản hồi.',
+                            confirmButtonText: 'Xác nhận'
+                        });
+                ", true);
             }
             catch (Exception ex)
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "ErrorMessage", $@"
-            Swal.fire({{
-                icon: 'error',
-                title: 'Lỗi hệ thống',
-                text: '{ex.Message}',
-                confirmButtonText: 'Đóng'
-            }});
-        ", true);
+                            Swal.fire({{
+                            icon: 'error',
+                            title: 'Lỗi hệ thống',
+                            text: '{ex.Message}',
+                            confirmButtonText: 'Đóng'
+                        }});
+                ", true);
             }
         }
 

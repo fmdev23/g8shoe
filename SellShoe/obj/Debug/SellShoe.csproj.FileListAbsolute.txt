@@ -1,3 +1,5 @@
+D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\obj\Debug\SellShoe.csproj.AssemblyReference.cache
+D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\obj\Debug\SellShoe.csproj.CoreCompileInputs.cache
 D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\bin\SellShoe.dll.config
 D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\bin\SellShoe.dll
 D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\bin\SellShoe.pdb
@@ -54,8 +56,6 @@ D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\bin\Microsoft.CodeDom.Providers.D
 D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\bin\Newtonsoft.Json.dll
 D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\bin\Newtonsoft.Json.xml
 D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\obj\Debug\SellShoe.csproj.AssemblyReference.cache
-D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\obj\Debug\SellShoe.csproj.CoreCompileInputs.cache
 D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\obj\Debug\SellShoe.csproj.Up2Date
 D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\obj\Debug\SellShoe.dll
 D:\NCTU\LTW\Visual Studio C#\SellShoe\SellShoe\obj\Debug\SellShoe.pdb

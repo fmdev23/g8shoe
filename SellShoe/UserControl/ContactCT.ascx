@@ -4,7 +4,7 @@
 
     <h2>#contact</h2>
 
-    <p>Gửi cho chúng tôi trải nghiệm của bạn. <br />Chúng tôi sẽ ghi nhận</p>
+    <p>Gửi cho chúng tôi trải nghiệm mua sắm của bạn.</p>
 
 </section>
 
@@ -12,7 +12,7 @@
     <div class="details">
         <span>THÔNG TIN LIÊN HỆ</span>
         <h2>G8Shoe luôn sẵn sàng hỗ trợ</h2>
-        <h3>Liên hệ trực tiếp hoặc online</h3>
+        <h3>Liên hệ trực tiếp hoặc online với thông tin,</h3>
 
         <div>
             <%for (int i = 0; i < listInfo.Count; i++)
@@ -56,7 +56,7 @@
 
 <section id="form-details">
     <div class="submit_form">
-        <span>Gửi phản hồi / báo cáo / góp ý</span>
+        <span>Gửi phản hồi / báo cáo / góp ý / ...</span>
         <h2>Chúng tôi luôn ghi nhận những ý kiến của khách hàng</h2>
 
         <asp:TextBox ID="txtContactName" runat="server" placeholder="Tên của bạn" CssClass="form-control" required="required"></asp:TextBox>

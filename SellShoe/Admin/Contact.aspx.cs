@@ -11,39 +11,54 @@ namespace SellShoe.Admin
     public partial class Contact : System.Web.UI.Page
     {
         public QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
-        public static List<tb_ContactFeedback> listFeedback = new List<tb_ContactFeedback>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            loadFeedback();
-        }
-
-        void loadFeedback()
-        {
-            // Load dữ liệu Feedback từ database
-            listFeedback = db.tb_ContactFeedbacks.ToList();
-        }
-
-        [WebMethod]
-        public static bool DeleteFeedback(int id)
-        {
-            try
+            if (!IsPostBack)
             {
-                using (var db = new QuanLyBanGiayDataContext())
+                LoadFeedback();
+                HandleDeleteRequest();
+            }
+        }
+
+        void LoadFeedback()
+        {
+            var feedbacks = db.tb_ContactFeedbacks.ToList();
+            rptFeedback.DataSource = feedbacks;
+            rptFeedback.DataBind();
+        }
+
+        void HandleDeleteRequest()
+        {
+            // Kiểm tra nếu có yêu cầu xóa phản hồi từ query string
+            string deleteId = Request.QueryString["deleteId"];
+            if (!string.IsNullOrEmpty(deleteId))
+            {
+                int id = Convert.ToInt32(deleteId);
+                var feedback = db.tb_ContactFeedbacks.SingleOrDefault(fb => fb.Id == id);
+                if (feedback != null)
                 {
-                    var feedback = db.tb_ContactFeedbacks.SingleOrDefault(fb => fb.Id == id);
-                    if (feedback != null)
-                    {
-                        db.tb_ContactFeedbacks.DeleteOnSubmit(feedback);
-                        db.SubmitChanges();
-                        return true;
-                    }
-                    return false;
+                    db.tb_ContactFeedbacks.DeleteOnSubmit(feedback);
+                    db.SubmitChanges();
+                    LoadFeedback(); // Cập nhật lại danh sách sau khi xóa
                 }
             }
-            catch
+        }
+
+        protected void rptFeedback_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Delete")
             {
-                return false;
+                int id = Convert.ToInt32(e.CommandArgument);
+                var feedback = db.tb_ContactFeedbacks.SingleOrDefault(fb => fb.Id == id);
+                if (feedback != null)
+                {
+                    db.tb_ContactFeedbacks.DeleteOnSubmit(feedback);
+                    db.SubmitChanges();
+                    LoadFeedback(); // Cập nhật lại danh sách sau khi xóa
+                }
             }
         }
     }
+
 }

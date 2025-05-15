@@ -13,7 +13,7 @@ namespace SellShoe.UserControl
 
         public static List<tb_Product> listSP = new List<tb_Product>();
 
-        public static List<ProductWithRating> listProductWithRating = new List<ProductWithRating>();
+        public static List<ProductWithRating> listProductWithRating = new List<ProductWithRating>(); // danh sách sản phẩm với rating
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace SellShoe.UserControl
 
         public class ProductWithRating
         {
-            public tb_Product Product { get; set; }
+            public tb_Product Product { get; set; } 
             public double? AverageRating { get; set; } // Dùng double? (nullable)
         }
 

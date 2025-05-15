@@ -1,0 +1,346 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Niconne&family=Quicksand:wght@300..700&family=Signika:wght@300..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Tilt+Neon&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Signika", sans-serif;
+  }
+  
+  body {
+    background-color: #f8f9fa;
+    color: #212529;
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .checkout-container {
+    display: flex;
+    max-width: 1100px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+  
+  /* Payment Form Styles */
+  .payment-form-container {
+    flex: 1;
+    padding: 40px;
+  }
+  
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #000;
+  }
+  
+  .subtitle {
+    color: #4a4a4a;
+    margin-bottom: 32px;
+    max-width: 550px;
+    font-size: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+    position: relative;
+  }
+  
+  input {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    color: #3f19fe;
+    transition: border-color 0.3s;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #3f19fe;
+  }
+  
+  input::placeholder {
+    color: #a0a0a0;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .half {
+    flex: 1;
+  }
+  
+  .card-number-group {
+    position: relative;
+  }
+  
+  .card-icons {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-icon {
+    height: 24px;
+    margin-right: 8px;
+  }
+  
+  #card-number {
+    padding-left: 60px;
+  }
+  
+  .promo-group {
+    position: relative;
+  }
+  
+  .apply-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #3f19fe;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  .button_sub {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .button_sub a {
+    text-align: center;
+    text-decoration: none;
+    width: 100px;
+    padding: 16px;
+    background-color: #3f19fe;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 16px;
+  }
+  
+  .pay-button {
+    width: 180px;
+    padding: 16px;
+    background-color: #3f19fe;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 16px;
+  }
+  
+  .pay-button:hover {
+    background-color: #6a4fff;
+  }
+  
+  /* Order Summary Styles */
+  .order-summary-container {
+    width: 380px;
+    background-color: #f9f9f9;
+    padding: 40px;
+    position: relative;
+  }
+  
+  .order-summary-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/walk_pay.png); 
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  
+  .order-summary {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .summary-header {
+    margin-bottom: 32px;
+  }
+  
+  .summary-header p {
+    font-size: 16px;
+    color: #4a4a4a;
+  }
+  
+  .summary-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+  }
+  
+  .summary-items {
+    margin-bottom: 24px;
+  }
+  
+  .summary-item {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa theo trục ngang */
+    text-align: center; /* Căn text giữa dưới ảnh */
+    gap: 8px; /* Khoảng cách giữa các phần tử */
+}
+
+  .item-details h3 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+.item-meta, .item-quan {
+    text-align: left;
+    font-size: 14px;
+    color: #6c757d;
+}
+  
+  .item-price {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .summary-discounts {
+    margin-bottom: 24px;
+  }
+  
+  .discount-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+  }
+  
+  .summary-divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 24px 0;
+  }
+  
+  .summary-tax {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-size: 16px;
+  }
+  
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 32px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    margin: 0 auto 16px;
+  }
+  
+  .modal-button {
+    padding: 12px 24px;
+    background-color: #3f19fe;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 24px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 900px) {
+    .checkout-container {
+      flex-direction: column;
+    }
+  
+    .order-summary-container {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .payment-form-container,
+    .order-summary-container {
+      padding: 24px;
+    }
+  
+    h1 {
+      font-size: 24px;
+    }
+  
+    .form-row {
+      flex-direction: column;
+      gap: 16px;
+    }
+  
+    .pay-button {
+      width: 100%;
+    }
+  }
+  

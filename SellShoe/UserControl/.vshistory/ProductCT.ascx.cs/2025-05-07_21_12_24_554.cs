@@ -1,0 +1,63 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace SellShoe.UserControl
+{
+    public partial class ProductCT : System.Web.UI.UserControl
+    {
+        public QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
+
+        public static List<tb_Product> listSP = new List<tb_Product>();
+
+        public static List<ProductWithRating> listProductWithRating = new List<ProductWithRating>();
+
+        public static List<tb_ProductCategory> listCategory = new List<tb_ProductCategory>(); //danh mục sản phẩm
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            loadProduct();
+        }
+
+        void loadProduct()
+        {
+            var data = from q in db.tb_Products
+                       where q.IsActive == true
+                       select q;
+            if (data != null && data.Count() > 0)
+            {
+                listSP = data.ToList();
+
+                // Tính Rating trung bình
+                listProductWithRating = (from p in db.tb_Products
+                                         where p.IsActive == true
+                                         select new ProductWithRating
+                                         {
+                                             Product = p,
+                                             AverageRating = (from rv in db.tb_Reviews
+                                                              where rv.ProductId == p.id
+                                                              select rv.Rating).Average()
+                                         }).ToList();
+            }
+        }
+
+        // Hàm lấy alias danh mục từ CategoryId
+        public string GetCategoryAlias(int? categoryId)
+        {
+            var cat = listCategory.FirstOrDefault(c => c.id == categoryId);
+            return cat != null ? cat.Alias : "";
+        }
+
+        public class ProductWithRating
+        {
+            public tb_Product Product { get; set; }
+            public double? AverageRating { get; set; } // Dùng double? (nullable)
+        }
+
+    }
+
+
+}

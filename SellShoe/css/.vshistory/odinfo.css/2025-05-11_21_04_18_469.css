@@ -1,0 +1,358 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Niconne&family=Quicksand:wght@300..700&family=Signika:wght@300..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Tilt+Neon&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Signika", sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container1 {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Header with colorful border */
+.header-border {
+    margin-top: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #5b9bd5, #5b9bd5 7%, #ed7d8c 7%, #ed7d8c 14%, #5b9bd5 14%, #5b9bd5 21%, #ed7d8c 21%, #ed7d8c 28%, #5b9bd5 28%, #5b9bd5 35%, #ed7d8c 35%, #ed7d8c 42%, #5b9bd5 42%, #5b9bd5 49%, #ed7d8c 49%, #ed7d8c 56%, #5b9bd5 56%, #5b9bd5 63%, #ed7d8c 63%, #ed7d8c 70%, #5b9bd5 70%, #5b9bd5 77%, #ed7d8c 77%, #ed7d8c 84%, #5b9bd5 84%, #5b9bd5 91%, #ed7d8c 91%, #ed7d8c 100%);
+}
+
+/* Delivery info section */
+.delivery-info {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.del-order {
+    font-size: 18px;
+}
+
+    .del-order:hover {
+        cursor: pointer;
+        color: #ed7d8c;
+        font-size: 18px;
+    }
+
+.recipient-info {
+    flex: 1;
+}
+
+.tracking-info {
+    flex: 2;
+    padding-left: 20px;
+    border-left: 1px solid #eee;
+}
+
+    .recipient-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+.recipient-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.recipient-phone {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.recipient-address {
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.recipient-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+/* Tracking timeline */
+.tracking-timeline {
+    margin-top: 10px;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.timeline-dot {
+    left: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 15px;
+    margin-top: 5px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+
+    .timeline-dot.active {
+        background-color: #00a65a;
+    }
+
+.timeline-line {
+    position: absolute;
+    left: 8px;
+    top: 20px;
+    width: 2px;
+    height: calc(100% + 5px);
+    background-color: #eee;
+    z-index: 1;
+}
+
+.timeline-content {
+    flex: 1;
+}
+
+.timeline-time {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.timeline-status {
+    color: #00a65a;
+}
+
+    .timeline-status.normal {
+        color: #666;
+    }
+.timeline-item.normal .timeline-content {
+    opacity: 0.6;
+    color: #999;
+}
+
+/* See more button */
+.see-more {
+    color: #1a73e8;
+    text-decoration: none;
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Verified section */
+.verified-section {
+    background-color: #f8f8f8;
+    padding: 10px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+}
+
+.verified-badge {
+    background-color: #ff5722;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.verified-text {
+    font-weight: bold;
+}
+
+.learn-more {
+    color: #1a73e8;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+/* Store section */
+.store-section {
+    display: flex;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.store-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.store-icon {
+    margin-right: 10px;
+    color: #666;
+}
+
+.store-name {
+    font-weight: bold;
+}
+
+.action-buttons {
+    display: flex;
+}
+
+.btn {
+    padding: 6px 12px;
+    margin-left: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.btn-chat {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+}
+
+.btn-view {
+    background-color: #f8f8f8;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn-icon {
+    margin-right: 5px;
+}
+
+/* Product section */
+.product-section {
+    padding: 20px 0;
+}
+
+.product-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #eee;
+    margin-right: 15px;
+    overflow: hidden;
+}
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+.product-details {
+    flex: 1;
+}
+
+.product-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.product-category {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.product-quantity {
+    color: #666;
+}
+
+.product-price {
+    text-align: right;
+}
+
+.price-original {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 14px;
+}
+
+.price-current {
+    color: #ff5722;
+    font-weight: bold;
+}
+
+/* Order summary */
+.order-summary {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.summary-label {
+    color: #666;
+}
+
+.summary-value {
+    font-weight: bold;
+    text-align: right;
+}
+
+    .summary-value.discount {
+        color: #00a65a;
+    }
+
+.summary-total {
+    font-size: 18px;
+    color: #ff5722;
+}
+
+.info-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #eee;
+    color: #666;
+    text-align: center;
+    line-height: 16px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.tracking-number {
+    text-align: left;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.express-label {
+    text-align: right;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Helper classes */
+.text-green {
+    color: #00a65a;
+}
+
+.text-red {
+    color: #ff5722;
+}

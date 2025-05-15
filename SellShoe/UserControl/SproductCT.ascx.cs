@@ -33,14 +33,16 @@ namespace SellShoe.UserControl
             int id = 0;
             if (Request.QueryString["id"] != null)
             {
-                int.TryParse(Request.QueryString["id"], out id);
+                int.TryParse(Request.QueryString["id"], out id); // Chuyển đổi giá trị "id" từ chuỗi sang số nguyên. Nếu sai định dạng thì id vẫn là 0.
             }
 
-            if (id > 0)
+            if (id > 0) // Nếu id lớn hơn 0 thì tìm sản phẩm theo id
             {
-                sanPham = db.tb_Products.FirstOrDefault(p => p.id == id && p.IsActive == true);
-                if (sanPham != null && sanPham.ProductCategoryId != null)
+                // Tìm sản phẩm theo id và trạng thái hoạt động
+                sanPham = db.tb_Products.FirstOrDefault(p => p.id == id && p.IsActive == true); 
+                if (sanPham != null) // Nếu tìm thấy sản phẩm
                 {
+                    // Lấy danh mục của sản phẩm từ bảng tb_ProductCategories.
                     danhMuc = db.tb_ProductCategories.FirstOrDefault(c => c.id == sanPham.ProductCategoryId);
                 }
             }
@@ -48,11 +50,26 @@ namespace SellShoe.UserControl
 
         void LoadBestSeller()
         {
-            listSP = db.tb_Products
-                       .Where(p => p.IsActive == true && p.IsHot == true)
-                       .Take(5) // chỉ lấy tối đa 5 sản phẩm hot
-                       .ToList();
+            if (sanPham != null)
+            {
+                int currentProductId = sanPham.id;
+                int currentCategoryId = sanPham.ProductCategoryId;
+
+                // Lấy 5 sản phẩm cùng danh mục, khác sản phẩm hiện tại
+                listSP = db.tb_Products
+                           .Where(p => p.IsActive == true
+                                   && p.ProductCategoryId == currentCategoryId
+                                   && p.id != currentProductId)
+                           .Take(5)
+                           .ToList();
+            }
+            else
+            {
+                listSP = new List<tb_Product>(); // Không có sản phẩm để gợi ý
+            }
         }
+
+
 
         void loadRV()
         {
@@ -73,6 +90,7 @@ namespace SellShoe.UserControl
 
         protected void btnSubmitReview_Click(object sender, EventArgs e)
         {
+
             int productId = 0;
             if (Request.QueryString["id"] != null)
             {
@@ -84,7 +102,7 @@ namespace SellShoe.UserControl
                 int rating = 0;
                 int.TryParse(hfRating.Value, out rating);
 
-                if (!string.IsNullOrEmpty(txtReviewerName.Text) && rating > 0)
+                if (!string.IsNullOrEmpty(txtReviewerName.Text) && rating > 0) 
                 {
                     var newReview = new tb_Review
                     {
