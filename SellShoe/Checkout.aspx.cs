@@ -52,7 +52,7 @@ namespace SellShoe
                 // 3. Tạo đơn hàng (tb_Order)
                 tb_Order order = new tb_Order
                 {
-                    Code = "DH" + DateTime.Now.ToString("ddMMyyyyHHmm"),  // Mã đơn hàng
+                    Code = "DH" + DateTime.Now.ToString("ddMMyyHHmmssff"),  // Mã đơn hàng
                     CustomerName = name,
                     Phone = phone,
                     Address = address,
@@ -102,6 +102,7 @@ namespace SellShoe
         icon: 'success',
         title: 'Đặt hàng thành công!',
         text: 'Chúng tôi đã nhận được đơn hàng của bạn!',
+        confirmButtonColor: ""#004aad"",
         confirmButtonText: 'Xem đơn hàng'
     }).then((result) => {
         if (result.isConfirmed) {

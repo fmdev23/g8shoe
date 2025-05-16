@@ -9,7 +9,12 @@
             <div class="header-actions">
                 <div class="search-container">
                     <i class="fal fa-search"></i>
-                    <input type="text" id="searchProduct" placeholder="Tìm sản phẩm">
+                    <asp:TextBox ID="txtSearch" runat="server"
+                        placeholder="Tìm sản phẩm"
+                        AutoPostBack="false"
+                        OnTextChanged="txtSearch_TextChanged"
+                        oninput="triggerSearch()" />
+
                 </div>
                 <asp:Button ID="btnAddProduct" runat="server" CssClass="add-product-btn" Text="Thêm sản phẩm"
                     OnClientClick="showAddModal(); return false;" UseSubmitBehavior="false" />
@@ -18,7 +23,7 @@
 
         <div class="table-container">
             <asp:DataGrid ID="dgProducts" runat="server"
-                AllowPaging="true" PageSize="7"
+                AllowPaging="true" PageSize="10"
                 AutoGenerateColumns="False"
                 PagerStyle-Mode="NumericPages"
                 DataKeyField="id"
@@ -29,14 +34,13 @@
                 OnUpdateCommand="dgProducts_UpdateCommand"
                 OnDeleteCommand="dgProducts_DeleteCommand"
                 CssClass="products-table"
-                
                 BorderWidth="0px"
                 GridLines="None"
                 CellPadding="0"
                 CellSpacing="0"
                 BorderStyle="None">
 
-                
+
                 <Columns>
                     <%-- Ảnh không cho sửa --%>
                     <asp:TemplateColumn HeaderText="Ảnh SP">
@@ -224,33 +228,6 @@
             }
         });
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const searchInput = document.getElementById("searchProduct");
-            const dataGrid = document.getElementById("dgProducts");
-
-            searchInput.addEventListener("input", function () {
-                const keyword = this.value.toLowerCase();
-                const rows = dataGrid.querySelectorAll("tr");
-
-                rows.forEach((row, index) => {
-                    if (index === 0) return; // bỏ qua header
-
-                    const cells = row.getElementsByTagName("td");
-                    if (cells.length === 0) return;
-
-                    // Gộp toàn bộ text trong hàng rồi kiểm tra keyword
-                    const rowText = Array.from(cells)
-                        .map(cell => cell.textContent.trim().toLowerCase())
-                        .join(" ");
-
-                    row.style.display = rowText.includes(keyword) ? "" : "none";
-                });
-            });
-        });
-    </script>
-
-
 
 </asp:Content>
 

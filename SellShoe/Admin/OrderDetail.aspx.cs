@@ -46,7 +46,6 @@ namespace SellShoe.Admin
             rptOrders.DataBind();
         }
 
-
         [WebMethod]
         public static bool ToggleOrderStatus(int id)
         {
@@ -60,7 +59,10 @@ namespace SellShoe.Admin
                     order.Status = newStatus;
                     order.ModifiedDate = DateTime.Now;
 
-                    // THÊM VÀO BẢNG TIMELINE
+                    var oldStatuses = db.tb_OrderStatus.Where(s => s.OrderID == order.id && s.IsActive == true);
+                    foreach (var s in oldStatuses)
+                        s.IsActive = false;
+
                     tb_OrderStatus statusLog = new tb_OrderStatus
                     {
                         OrderID = order.id,
@@ -69,16 +71,43 @@ namespace SellShoe.Admin
                         CreatedAt = DateTime.Now,
                         IsActive = true
                     };
-
-                    // Các status cũ chuyển về Inactive (nếu cần chỉ hiển thị 1 status active)
-                    var oldStatuses = db.tb_OrderStatus.Where(s => s.OrderID == order.id && s.IsActive == true);
-                    foreach (var s in oldStatuses)
-                    {
-                        s.IsActive = false;
-                    }
-
                     db.tb_OrderStatus.InsertOnSubmit(statusLog);
                     db.SubmitChanges();
+
+                    // Gọi Task thêm "Đang vận chuyển" sau 10 giây
+                    if (newStatus == 1)
+                    {
+                        System.Threading.ThreadPool.QueueUserWorkItem(_ =>
+                        {
+                            System.Threading.Thread.Sleep(5000); // Delay 5 giây
+
+                            try
+                            {
+                                QuanLyBanGiayDataContext dbDelay = new QuanLyBanGiayDataContext();
+
+                                // Chuyển tất cả các trạng thái về Inactive
+                                var old = dbDelay.tb_OrderStatus.Where(s => s.OrderID == order.id && s.IsActive == true);
+                                foreach (var s in old)
+                                    s.IsActive = false;
+
+                                tb_OrderStatus newStatusEntry = new tb_OrderStatus
+                                {
+                                    OrderID = order.id,
+                                    StatusTitle = "Đang vận chuyển",
+                                    StatusDetail = "Đơn hàng đang được giao đến bạn.",
+                                    CreatedAt = DateTime.Now,
+                                    IsActive = true
+                                };
+
+                                dbDelay.tb_OrderStatus.InsertOnSubmit(newStatusEntry);
+                                dbDelay.SubmitChanges();
+                            }
+                            catch
+                            {
+                                
+                            }
+                        });
+                    }
 
                     return true;
                 }

@@ -16,17 +16,22 @@
             <div class="recipient-info">
                 <h2 class="recipient-title">Thông tin nhận hàng</h2>
                 <asp:Label ID="lblRecipientName" runat="server" CssClass="recipient-name" /><br />
-                SDT: <asp:Label ID="lblPhone" runat="server" CssClass="recipient-phone" /><br />
-                Địa chỉ: <asp:Label ID="lblAddress" runat="server" CssClass="recipient-address" />
+                SDT:
+                <asp:Label ID="lblPhone" runat="server" CssClass="recipient-phone" /><br />
+                Địa chỉ:
+                <asp:Label ID="lblAddress" runat="server" CssClass="recipient-address" />
                 <div class="recipient-detail">
                     <asp:Image ID="imgProduct" runat="server" Width="130px" Height="130px" />
                 </div>
-                
-            Tên sản phẩm: <asp:Label ID="lblProductTitle" runat="server" /><br />
-                
-            Số lượng: <asp:Label ID="lblQuantity" runat="server" /><br />
-                
-            Size: <asp:Label ID="lblSize" runat="server" /><br />
+
+                Tên sản phẩm:
+                <asp:Label ID="lblProductTitle" runat="server" /><br />
+
+                Số lượng:
+                <asp:Label ID="lblQuantity" runat="server" /><br />
+
+                Size:
+                <asp:Label ID="lblSize" runat="server" /><br />
                 <asp:Label ID="lblPayment" runat="server" /><br />
             </div>
 
@@ -51,11 +56,46 @@
                 </div>
             </div>
             <div class="del-order">
-                <asp:LinkButton ID="btnCancelOrder" runat="server" CssClass="delete-order-btn" OnClick="btnCancelOrder_Click" OnClientClick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">
-                <i class="fad fa-trash"></i>
+                <asp:LinkButton
+                    ID="btnCancelOrder"
+                    runat="server"
+                    CssClass="delete-order-btn"
+                    OnClick="btnCancelOrder_Click"
+                    OnClientClick="return false;">
+                    <i class="fad fa-trash"></i>
                 </asp:LinkButton>
+
             </div>
         </div>
     </asp:Panel>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const btn = document.getElementById("<%= btnCancelOrder.ClientID %>");
+        if (btn) {
+            btn.addEventListener("click", function (e) {
+                e.preventDefault(); // chặn postback gốc
+
+                Swal.fire({
+                    title: "Bạn chắc chắn?",
+                    text: "Hủy đơn rồi là không khôi phục được đâu nha!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#ed7d8c",
+                    cancelButtonColor: "#004aad",
+                    confirmButtonText: "Hủy luôn!",
+                    cancelButtonText: "Không"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        __doPostBack('<%= btnCancelOrder.UniqueID %>', '');
+                    }
+                });
+            });
+        }
+    });
+    </script>
+
+
+
 </div>
 

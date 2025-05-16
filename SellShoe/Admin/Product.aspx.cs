@@ -18,12 +18,14 @@ namespace SellShoe.Admin
         {
             if (!IsPostBack)
             {
+                txtSearch.Text = "";
+                SearchKeyword = "";
                 LoadCategories();
                 LoadData();
             }
         }
 
-        void LoadData()
+        void LoadData(string searchKeyword = "")
         {
             var data = from p in db.tb_Products
                        join c in db.tb_ProductCategories on p.ProductCategoryId equals c.id
@@ -43,9 +45,27 @@ namespace SellShoe.Admin
                            CategoryName = c.Title
                        };
 
+            if (!string.IsNullOrEmpty(searchKeyword))
+            {
+                searchKeyword = searchKeyword.ToLower();
+                data = data.Where(p => p.Title.ToLower().Contains(searchKeyword)
+                                    || p.ProductCode.ToLower().Contains(searchKeyword)
+                                    || p.CategoryName.ToLower().Contains(searchKeyword));
+            }
+
             listSP = data.ToList();
             BindDataGrid();
         }
+
+        protected void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            SearchKeyword = txtSearch.Text.Trim();
+            dgProducts.CurrentPageIndex = 0;
+            LoadData(SearchKeyword);
+        }
+
+
+
 
         void BindDataGrid()
         {
@@ -66,8 +86,10 @@ namespace SellShoe.Admin
         protected void dgProducts_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
         {
             dgProducts.CurrentPageIndex = e.NewPageIndex;
-            BindDataGrid();
+            LoadData(SearchKeyword);
         }
+
+
 
         protected void dgProducts_EditCommand(object source, DataGridCommandEventArgs e)
         {
@@ -165,6 +187,13 @@ namespace SellShoe.Admin
                 }
             }
         }
+
+        private string SearchKeyword
+        {
+            get { return ViewState["SearchKeyword"] as string ?? ""; }
+            set { ViewState["SearchKeyword"] = value; }
+        }
+
 
         public class ProductViewModel
         {

@@ -224,7 +224,7 @@
                     </div>
 
                 </div>
-                <a href="#"><i class="fad fa-wallet cart"></i></a>
+                <a href="sproduct.aspx?id=<%= listSP[i].id %>"><i class="fad fa-wallet cart"></i></a>
         </div>
 
         <%

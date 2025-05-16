@@ -76,7 +76,6 @@
     <Content Include="AdminLogin.aspx" />
     <Content Include="Admin\OrderDetail.aspx" />
     <Content Include="Checkout.aspx" />
-    <Content Include="css\error.css" />
     <Content Include="css\log.css" />
     <Content Include="css\odinfo.css" />
     <Content Include="OrderInfo.aspx" />

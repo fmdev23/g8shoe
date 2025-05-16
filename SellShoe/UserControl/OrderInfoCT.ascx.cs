@@ -44,7 +44,7 @@ namespace SellShoe.UserControl
                 pnlOrderInfo.Visible = true;
 
                 ViewState["CurrentOrderID"] = order.id;
-                
+
                 // Load thông tin người nhận
                 lblRecipientName.Text = order.CustomerName;
                 lblPhone.Text = order.Phone;
@@ -104,12 +104,24 @@ namespace SellShoe.UserControl
                     db.tb_Orders.DeleteOnSubmit(order);
                     db.SubmitChanges();
 
-                    ScriptManager.RegisterStartupScript(this, GetType(), "alertRedirect", "alert('Đơn hàng đã được hủy thành công.'); window.location.href='Home.aspx';", true);
+                    string sweetAlert = @"
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Huỷ thành công!',
+                        text: 'Đơn hàng của bạn đã được huỷ. Đặt đơn mới nha',
+                        confirmButtonColor: '#004aad',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'product.aspx';
+                    });
+                </script>";
 
+                    ScriptManager.RegisterStartupScript(this, GetType(), "swalRedirect", sweetAlert, false);
                 }
+
             }
         }
+
     }
-
-
 }
