@@ -79,6 +79,7 @@
     <Content Include="css\error.css" />
     <Content Include="css\log.css" />
     <Content Include="css\odinfo.css" />
+    <Content Include="Error.aspx" />
     <Content Include="OrderInfo.aspx" />
     <Content Include="UserAccount.aspx" />
     <Content Include="Admin\admin.css" />
@@ -162,6 +163,13 @@
     </Compile>
     <Compile Include="Checkout.aspx.designer.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="OrderInfo.aspx.cs">
       <DependentUpon>OrderInfo.aspx</DependentUpon>

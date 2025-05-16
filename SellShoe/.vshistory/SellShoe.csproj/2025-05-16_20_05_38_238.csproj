@@ -79,6 +79,7 @@
     <Content Include="css\error.css" />
     <Content Include="css\log.css" />
     <Content Include="css\odinfo.css" />
+    <Content Include="Error.aspx" />
     <Content Include="OrderInfo.aspx" />
     <Content Include="UserAccount.aspx" />
     <Content Include="Admin\admin.css" />
@@ -130,6 +131,7 @@
     <Content Include="UserControl\ContactCT.ascx" />
     <Content Include="UserControl\HomeCT.ascx" />
     <Content Include="UserControl\OrderInfoCT.ascx" />
+    <Content Include="UserControl\OrderToastNotify.ascx" />
     <Content Include="UserControl\ProductCT.ascx" />
     <Content Include="UserControl\SproductCT.ascx" />
     <Content Include="Web.config" />
@@ -162,6 +164,13 @@
     </Compile>
     <Compile Include="Checkout.aspx.designer.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="OrderInfo.aspx.cs">
       <DependentUpon>OrderInfo.aspx</DependentUpon>
@@ -288,6 +297,12 @@
     </Compile>
     <Compile Include="UserControl\OrderInfoCT.ascx.designer.cs">
       <DependentUpon>OrderInfoCT.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\OrderToastNotify.ascx.cs">
+      <DependentUpon>OrderToastNotify.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\OrderToastNotify.ascx.designer.cs">
+      <DependentUpon>OrderToastNotify.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\ProductCT.ascx.cs">
       <DependentUpon>ProductCT.ascx</DependentUpon>

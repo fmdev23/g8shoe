@@ -28,8 +28,8 @@
                     <div>
                         <h3>Khách hàng</h3>
                         <p class="subtitle">trong tháng</p>
-                    </div>
                     <div class="card-value"><%= CustomersThisMonth %> KH</div>
+                    </div>
                 </div>
             </div>
 

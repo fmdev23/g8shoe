@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace SellShoe
+namespace SellShoe.UserControl
 {
-    public partial class Error : System.Web.UI.Page
+    public partial class OrderToastNotify : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {

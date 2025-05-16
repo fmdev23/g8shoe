@@ -14,6 +14,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <%@ Register Src="~/UserControl/OrderToastNotify.ascx" TagPrefix="uc" TagName="ToastNotify" %>
+<uc:ToastNotify runat="server" ID="toastNotify" />
 
         <div class="checkout-container">
             <div class="payment-form-container">

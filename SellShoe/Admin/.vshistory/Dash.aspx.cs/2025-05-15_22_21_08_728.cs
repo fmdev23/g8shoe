@@ -120,6 +120,8 @@ namespace SellShoe.Admin
             Top5Revenue = topProducts.Sum(x => x.TotalRevenue);
         }
 
+
+
         // ViewModel: Định nghĩa lớp trung gian để dễ bind ra view (tránh thao tác trực tiếp với entity gốc)
         public class OrderViewModel
         {

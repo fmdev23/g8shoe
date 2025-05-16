@@ -57,8 +57,7 @@
 
         <!-- Chọn size -->
         <div class="size-group">
-            <span class="size-option active">36</span>
-            <span class="size-option">37</span>
+            <span class="size-option active">37</span>
             <span class="size-option">38</span>
             <span class="size-option">39</span>
             <span class="size-option">40</span>

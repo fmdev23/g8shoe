@@ -14,7 +14,6 @@
 </head>
 <body>
     <form id="form1" runat="server">
-
         <div class="checkout-container">
             <div class="payment-form-container">
                 <h1>Bước cuối cùng, hoàn tất đơn hàng của bạn</h1>

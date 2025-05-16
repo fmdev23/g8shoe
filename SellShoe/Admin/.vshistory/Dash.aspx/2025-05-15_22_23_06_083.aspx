@@ -30,6 +30,11 @@
                         <p class="subtitle">trong tháng</p>
                     </div>
                     <div class="card-value"><%= CustomersThisMonth %> KH</div>
+
+
+                </div>
+                <div class="chart-container">
+                    <canvas id="customersChart"></canvas>
                 </div>
             </div>
 
