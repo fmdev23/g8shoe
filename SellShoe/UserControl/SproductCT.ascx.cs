@@ -15,14 +15,14 @@ namespace SellShoe.UserControl
         public QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
         public tb_Product sanPham; // Sản phẩm chi tiết
         public tb_ProductCategory danhMuc;
-        public static List<tb_Product> listSP = new List<tb_Product>(); // Best seller (IsHot)
+        public static List<tb_Product> listSP = new List<tb_Product>(); // load sản phẩm gợi ý
         public List<tb_Review> listRV = new List<tb_Review>();
         
         protected void Page_Load(object sender, EventArgs e)
         {
 
             LoadSanPham();
-            LoadBestSeller();
+            LoadBestSeller(); //load sản phẩm gợi ý
             loadRV();
             RatingCacheManager.LoadRatings(); // Load ratings vào cache
 

@@ -18,10 +18,8 @@ namespace SellShoe.UserControl
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             LoadContactInfo();
             LoadContactPeople();
-
         }
 
         void LoadContactInfo()
