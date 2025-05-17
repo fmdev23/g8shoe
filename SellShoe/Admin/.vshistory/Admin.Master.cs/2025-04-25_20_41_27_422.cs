@@ -14,15 +14,5 @@ namespace SellShoe.Admin
         {
 
         }
-
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            // Xoá session
-            Session.Clear();
-            Session.Abandon();
-
-            Response.Redirect("~/adminlogin.aspx");
-        }
-
     }
 }

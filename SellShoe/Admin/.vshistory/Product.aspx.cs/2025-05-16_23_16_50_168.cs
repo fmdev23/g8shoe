@@ -16,40 +16,12 @@ namespace SellShoe.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            CheckDangNhap();
             if (!IsPostBack)
             {
                 txtSearch.Text = "";
                 SearchKeyword = "";
                 LoadCategories();
                 LoadData();
-            }
-        }
-
-        void CheckDangNhap()
-        {
-            if (Session["Admin"] != null && Session["Password"] != null)
-            {
-                var data = from q in db.tb_AccountAdmins
-                           where q.TenBien == "Admin"
-                           && q.GiaTri == Session["Admin"].ToString()
-                           select q;
-                var dataPass = from q in db.tb_AccountAdmins
-                               where q.TenBien == "Password"
-                               && q.GiaTri == Session["Password"].ToString()
-                               select q;
-                if (data != null && data.Count() > 0)
-                {
-
-                }
-                else
-                {
-                    Response.Redirect("../AdminLogin.aspx");
-                }
-            }
-            else
-            {
-                Response.Redirect("../AdminLogin.aspx");
             }
         }
 

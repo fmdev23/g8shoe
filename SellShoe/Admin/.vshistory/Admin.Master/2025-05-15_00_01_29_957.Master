@@ -72,11 +72,10 @@
                     <div class="sidebar-divider"></div>
                     <ul>
                         <li>
-                            <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" CssClass="nav-item">
-    <i class="fad fa-sign-out"></i>
-    <span>Đăng xuất</span>
-                            </asp:LinkButton>
-
+                            <a href="../home.aspx" class="nav-item">
+                                <i class="fad fa-sign-out"></i>
+                                <span>Đăng xuất</span>
+                            </a>
                         </li>
                     </ul>
                 </nav>

@@ -20,7 +20,6 @@ namespace SellShoe.Admin
             // Xoá session
             Session.Clear();
             Session.Abandon();
-
             Response.Redirect("~/adminlogin.aspx");
         }
 

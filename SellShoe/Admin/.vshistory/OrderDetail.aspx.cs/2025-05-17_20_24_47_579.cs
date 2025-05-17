@@ -39,7 +39,7 @@ namespace SellShoe.Admin
                                select q;
                 if (data != null && data.Count() > 0)
                 {
-                    
+
                 }
                 else
                 {

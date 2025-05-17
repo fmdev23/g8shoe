@@ -73,10 +73,10 @@
 
         <asp:Label ID="lblMessage" runat="server" CssClass="error-message"></asp:Label>
 
-        <asp:Label ID="lblUsername" runat="server" Text="Username: "></asp:Label>
+        <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
         <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" autocomplete="off"></asp:TextBox>
 
-        <asp:Label ID="lblPassword" runat="server" Text="Password: "></asp:Label>
+        <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
         <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control" autocomplete="new-password"></asp:TextBox>
 
         <asp:Button ID="btnLogin" runat="server" Text="Đăng nhập" OnClick="btnLogin_Click" />

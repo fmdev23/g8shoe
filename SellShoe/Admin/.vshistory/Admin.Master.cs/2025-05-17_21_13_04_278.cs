@@ -21,6 +21,7 @@ namespace SellShoe.Admin
             Session.Clear();
             Session.Abandon();
 
+            // Chuyển về trang chủ
             Response.Redirect("~/adminlogin.aspx");
         }
 

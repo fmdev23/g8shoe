@@ -4,16 +4,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>LOGIN</title>
+    <title></title>
 </head>
 <body>
     <form id="form1" runat="server">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Niconne&family=Quicksand:wght@300..700&family=Signika:wght@300..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Tilt+Neon&display=swap');
-
         body {
-            font-family: "Signika", sans-serif;
-            background: linear-gradient(to right, #4e54c800, #cfd2ff);
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -42,6 +40,7 @@
         }
         .login-box input[type="text"],
         .login-box input[type="password"] {
+            width: 100%;
             padding: 10px;
             margin-bottom: 16px;
             border: 1px solid #ccc;
@@ -50,16 +49,17 @@
         }
         .login-box input[type="submit"],
         .login-box button {
-            background-color: #232bca;
+            background-color: #4e54c8;
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
+            width: 100%;
             font-weight: bold;
         }
         .login-box input[type="submit"]:hover {
-            background-color: #030fff;
+            background-color: #3b40a4;
         }
         .error-message {
             color: red;
@@ -73,13 +73,13 @@
 
         <asp:Label ID="lblMessage" runat="server" CssClass="error-message"></asp:Label>
 
-        <asp:Label ID="lblUsername" runat="server" Text="Username: "></asp:Label>
-        <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" autocomplete="off"></asp:TextBox>
+        <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
+        <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control"></asp:TextBox>
 
-        <asp:Label ID="lblPassword" runat="server" Text="Password: "></asp:Label>
-        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control" autocomplete="new-password"></asp:TextBox>
+        <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
+        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
 
-        <asp:Button ID="btnLogin" runat="server" Text="Đăng nhập" OnClick="btnLogin_Click" />
+        <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
     </div>
 </form>
 

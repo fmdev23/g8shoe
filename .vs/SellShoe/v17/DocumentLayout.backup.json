@@ -3,20 +3,48 @@
   "WorkspaceRootPath": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\admin\\admin.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\admin.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\admin\\contact.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\contact.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\admin\\team.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\team.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\sellshoe\\admin\\team.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\team.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\admin\\productcategory.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\productcategory.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\sellshoe\\admin\\product.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\product.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\admin\\orderdetail.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\orderdetail.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\adminlogin.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\adminlogin.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\checkout.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\checkout.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\admin\\product.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\sellshoe\\admin\\product.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\product.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\admin\\product.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\product.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|d:\\nctu\\ltw\\visual studio c#\\sellshoe\\sellshoe\\admin\\team.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{19FC565C-B2AB-4263-A795-51379FE09D43}|SellShoe\\SellShoe.csproj|solutionrelative:sellshoe\\admin\\team.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,32 +59,123 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Admin.Master.cs",
+              "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Admin.Master.cs",
+              "RelativeDocumentMoniker": "SellShoe\\Admin\\Admin.Master.cs",
+              "ToolTip": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Admin.Master.cs",
+              "RelativeToolTip": "SellShoe\\Admin\\Admin.Master.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T14:12:18.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Admin.Master",
+              "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Admin.Master",
+              "RelativeDocumentMoniker": "SellShoe\\Admin\\Admin.Master",
+              "ToolTip": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Admin.Master",
+              "RelativeToolTip": "SellShoe\\Admin\\Admin.Master",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-17T14:10:24.897Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Contact.aspx.cs",
+              "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Contact.aspx.cs",
+              "RelativeDocumentMoniker": "SellShoe\\Admin\\Contact.aspx.cs",
+              "ToolTip": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Contact.aspx.cs",
+              "RelativeToolTip": "SellShoe\\Admin\\Contact.aspx.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T14:08:43.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Team.aspx.cs",
+              "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Team.aspx.cs",
+              "RelativeDocumentMoniker": "SellShoe\\Admin\\Team.aspx.cs",
+              "ToolTip": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Team.aspx.cs",
+              "RelativeToolTip": "SellShoe\\Admin\\Team.aspx.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAcwBEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T14:08:25.042Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProductCategory.aspx.cs",
+              "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\ProductCategory.aspx.cs",
+              "RelativeDocumentMoniker": "SellShoe\\Admin\\ProductCategory.aspx.cs",
+              "ToolTip": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\ProductCategory.aspx.cs",
+              "RelativeToolTip": "SellShoe\\Admin\\ProductCategory.aspx.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAcwBUAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T14:08:07.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdminLogin.aspx",
+              "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\AdminLogin.aspx",
+              "RelativeDocumentMoniker": "SellShoe\\AdminLogin.aspx",
+              "ToolTip": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\AdminLogin.aspx",
+              "RelativeToolTip": "SellShoe\\AdminLogin.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-17T13:29:12.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OrderDetail.aspx.cs",
+              "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\OrderDetail.aspx.cs",
+              "RelativeDocumentMoniker": "SellShoe\\Admin\\OrderDetail.aspx.cs",
+              "ToolTip": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\OrderDetail.aspx.cs",
+              "RelativeToolTip": "SellShoe\\Admin\\OrderDetail.aspx.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAmwDQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T13:24:32.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "Checkout.aspx.cs",
               "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Checkout.aspx.cs",
               "RelativeDocumentMoniker": "SellShoe\\Checkout.aspx.cs",
               "ToolTip": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Checkout.aspx.cs",
               "RelativeToolTip": "SellShoe\\Checkout.aspx.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAYwDcAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAYwGcAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-16T16:27:32.23Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Product.aspx.cs",
               "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Product.aspx.cs",
               "RelativeDocumentMoniker": "SellShoe\\Admin\\Product.aspx.cs",
               "ToolTip": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Product.aspx.cs",
               "RelativeToolTip": "SellShoe\\Admin\\Product.aspx.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAuwFgAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAcwBIAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-16T16:08:04.679Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 10,
               "Title": "Product.aspx",
               "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Product.aspx",
               "RelativeDocumentMoniker": "SellShoe\\Admin\\Product.aspx",
@@ -64,12 +183,11 @@
               "RelativeToolTip": "SellShoe\\Admin\\Product.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-05-16T16:00:12.987Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T16:00:12.987Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Team.aspx",
               "DocumentMoniker": "D:\\NCTU\\LTW\\Visual Studio C#\\SellShoe\\SellShoe\\Admin\\Team.aspx",
               "RelativeDocumentMoniker": "SellShoe\\Admin\\Team.aspx",
