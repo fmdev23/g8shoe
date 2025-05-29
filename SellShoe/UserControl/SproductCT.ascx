@@ -104,86 +104,87 @@
             <p>GIÁ GỐC: <%=((int)sanPham.Price) %></p>
             <p>SỐ LƯỢNG HÀNG CÓ SẴN: <%=sanPham.Quantity + " Đôi"%></p>
             <p><%=sanPham.Description %></p>
-            <p><%=sanPham.Detail %></p>
-
-
+            <div>
+    <%=sanPham.Detail %>
+</div>
         </div>
 
-        <div class="tab-pane" id="customer-reviews">
+    <div class="tab-pane" id="customer-reviews">
 
-            <section class="review-section">
-                <div class="review-container">
-                    <!-- Danh sách review -->
-                    <div class="review-list" id="reviewList">
-                        <% for (int i = 0; i < listRV.Count; i++)
-                            {
-                                if (listRV[i].ProductId == sanPham.id)
-                                { %>
-                        <div class="review-item">
-                            <div class="review-avatar">
-                                <img class="review-avatar" src="../img/user.jpg" />
-                            </div>
-                            <div class="review-content">
-                                <p class="review-date">
-                                    <%= listRV[i].CreatedAt.HasValue ? listRV[i].CreatedAt.Value.ToString("dd/MM/yyyy") : "" %>
-                                </p>
-                                <p class="review-name">
-                                    <%= listRV[i].ReviewerName %>
-                                </p>
-                                <div class="review-stars">
-                                    <% 
-                                        int rating = listRV[i].Rating;
-                                        for (int star = 1; star <= 5; star++)
-                                        {
-                                            if (star <= rating)
-                                            { %>
-                                    <i class="fas fa-star"></i>
-                                    <% }
-                                        else
+        <section class="review-section">
+            <div class="review-container">
+                <!-- Danh sách review -->
+                <div class="review-list" id="reviewList">
+                    <% for (int i = 0; i < listRV.Count; i++)
+                        {
+                            if (listRV[i].ProductId == sanPham.id)
+                            { %>
+                    <div class="review-item">
+                        <div class="review-avatar">
+                            <img class="review-avatar" src="../img/user.jpg" />
+                        </div>
+                        <div class="review-content">
+                            <p class="review-date">
+                                <%= listRV[i].CreatedAt.HasValue ? listRV[i].CreatedAt.Value.ToString("dd/MM/yyyy") : "" %>
+                            </p>
+                            <p class="review-name">
+                                <%= listRV[i].ReviewerName %>
+                            </p>
+                            <div class="review-stars">
+                                <% 
+                                    int rating = listRV[i].Rating;
+                                    for (int star = 1; star <= 5; star++)
+                                    {
+                                        if (star <= rating)
                                         { %>
-                                    <i class="far fa-star"></i>
-                                    <% }
-                                        } %>
-                                </div>
-                                <p class="review-text">
-                                    <%= listRV[i].ReviewText %>
-                                </p>
+                                <i class="fas fa-star"></i>
+                                <% }
+                                    else
+                                    { %>
+                                <i class="far fa-star"></i>
+                                <% }
+                                    } %>
                             </div>
+                            <p class="review-text">
+                                <%= listRV[i].ReviewText %>
+                            </p>
                         </div>
-                        <% }
-                            } %>
                     </div>
-
-                    <!-- Form thêm review -->
-                    <div class="review-form">
-                        <h3>Thêm đánh giá sản phẩm</h3>
-                        <asp:TextBox ID="txtReviewerName" runat="server" Placeholder="Tên của bạn"></asp:TextBox><br />
-                        <asp:TextBox ID="txtReviewerEmail" runat="server" Placeholder="Email" TextMode="Email"></asp:TextBox><br />
-
-                        <div class="rating-label">
-                            <label>Đánh giá:</label>
-                            <asp:HiddenField ID="hfRating" runat="server" />
-                            <div class="star-rating" id="starRating">
-                                <i class="far fa-star" data-value="1"></i>
-                                <i class="far fa-star" data-value="2"></i>
-                                <i class="far fa-star" data-value="3"></i>
-                                <i class="far fa-star" data-value="4"></i>
-                                <i class="far fa-star" data-value="5"></i>
-                            </div>
-                        </div>
-
-                        <asp:TextBox ID="txtReviewText" runat="server" Placeholder="Đánh giá của bạn" TextMode="MultiLine" Rows="3"></asp:TextBox><br />
-
-                        <asp:Button ID="btnSubmitReview" runat="server" Text="Gửi đánh giá" CssClass="submit-btn" OnClick="btnSubmitReview_Click" />
-                    </div>
-
+                    <% }
+                        } %>
                 </div>
 
-            </section>
+                <!-- Form thêm review -->
+                <div class="review-form">
+                    <h3>Thêm đánh giá sản phẩm</h3>
+                    <asp:TextBox ID="txtReviewerName" runat="server" Placeholder="Tên của bạn"></asp:TextBox><br />
+                    <asp:TextBox ID="txtReviewerEmail" runat="server" Placeholder="Email" TextMode="Email"></asp:TextBox><br />
 
-        </div>
+                    <div class="rating-label">
+                        <label>Đánh giá:</label>
+                        <asp:HiddenField ID="hfRating" runat="server" />
+                        <div class="star-rating" id="starRating">
+                            <i class="far fa-star" data-value="1"></i>
+                            <i class="far fa-star" data-value="2"></i>
+                            <i class="far fa-star" data-value="3"></i>
+                            <i class="far fa-star" data-value="4"></i>
+                            <i class="far fa-star" data-value="5"></i>
+                        </div>
+                    </div>
+
+                    <asp:TextBox ID="txtReviewText" runat="server" Placeholder="Đánh giá của bạn" TextMode="MultiLine" Rows="3"></asp:TextBox><br />
+
+                    <asp:Button ID="btnSubmitReview" runat="server" Text="Gửi đánh giá" CssClass="submit-btn" OnClick="btnSubmitReview_Click" />
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
     </div>
 </section>
+
 
 <section id="product-best-seller" class="section-p1 product-section">
     <div class="section_title">

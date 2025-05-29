@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FredCK.FCKeditorV2">
+      <HintPath>fckeditor\FredCK.FCKeditorV2.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -74,19 +77,19 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="AdminLogin.aspx" />
-    <Content Include="Admin\OrderDetail.aspx" />
+    <Content Include="Admin\QLContact.aspx" />
+    <Content Include="Admin\QLDashboard.aspx" />
+    <Content Include="Admin\QLOrder.aspx" />
+    <Content Include="Admin\QLProduct.aspx" />
+    <Content Include="Admin\QLProductCate.aspx" />
+    <Content Include="Admin\QLTeam.aspx" />
     <Content Include="Checkout.aspx" />
     <Content Include="css\log.css" />
     <Content Include="css\odinfo.css" />
     <Content Include="OrderInfo.aspx" />
     <Content Include="UserAccount.aspx" />
     <Content Include="Admin\admin.css" />
-    <Content Include="Admin\Contact.aspx" />
-    <Content Include="Admin\Dash.aspx" />
     <Content Include="Admin\dash.css" />
-    <Content Include="Admin\Product.aspx" />
-    <Content Include="Admin\ProductCategory.aspx" />
-    <Content Include="Admin\Team.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="css\checkout.css" />
     <Content Include="css\style.css" />
@@ -148,12 +151,47 @@
     <Compile Include="AdminLogin.aspx.designer.cs">
       <DependentUpon>AdminLogin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\OrderDetail.aspx.cs">
-      <DependentUpon>OrderDetail.aspx</DependentUpon>
+    <Compile Include="Admin\QLContact.aspx.cs">
+      <DependentUpon>QLContact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\OrderDetail.aspx.designer.cs">
-      <DependentUpon>OrderDetail.aspx</DependentUpon>
+    <Compile Include="Admin\QLContact.aspx.designer.cs">
+      <DependentUpon>QLContact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\QLDashboard.aspx.cs">
+      <DependentUpon>QLDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\QLDashboard.aspx.designer.cs">
+      <DependentUpon>QLDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\QLOrder.aspx.cs">
+      <DependentUpon>QLOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\QLOrder.aspx.designer.cs">
+      <DependentUpon>QLOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\QLProduct.aspx.cs">
+      <DependentUpon>QLProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\QLProduct.aspx.designer.cs">
+      <DependentUpon>QLProduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\QLProductCate.aspx.cs">
+      <DependentUpon>QLProductCate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\QLProductCate.aspx.designer.cs">
+      <DependentUpon>QLProductCate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\QLTeam.aspx.cs">
+      <DependentUpon>QLTeam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\QLTeam.aspx.designer.cs">
+      <DependentUpon>QLTeam.aspx</DependentUpon>
     </Compile>
     <Compile Include="Checkout.aspx.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
@@ -175,48 +213,6 @@
     </Compile>
     <Compile Include="UserAccount.aspx.designer.cs">
       <DependentUpon>UserAccount.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Admin.Master.cs">
-      <DependentUpon>Admin.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Admin.Master.designer.cs">
-      <DependentUpon>Admin.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Dash.aspx.cs">
-      <DependentUpon>Dash.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Dash.aspx.designer.cs">
-      <DependentUpon>Dash.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Product.aspx.cs">
-      <DependentUpon>Product.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Product.aspx.designer.cs">
-      <DependentUpon>Product.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\ProductCategory.aspx.cs">
-      <DependentUpon>ProductCategory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\ProductCategory.aspx.designer.cs">
-      <DependentUpon>ProductCategory.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Team.aspx.cs">
-      <DependentUpon>Team.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Team.aspx.designer.cs">
-      <DependentUpon>Team.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -306,7 +302,6 @@
   <ItemGroup>
     <Content Include="img\Google__G__logo.svg.webp" />
     <Content Include="Home.Master" />
-    <Content Include="Admin\Admin.Master" />
     <None Include="packages.config" />
     <Content Include="QuanLyBanGiay.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>

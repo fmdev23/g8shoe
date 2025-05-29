@@ -552,6 +552,15 @@ body {
         color: inherit;
     }
 
+.product-detail-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    gap: 20px;
+}
+
 
 .pro {
     animation-fill-mode: both;

@@ -105,6 +105,12 @@ body {
     margin-bottom: 1.5rem;
 }
 
+    .breadcrumb a {
+        color: #6b7280;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
     .breadcrumb span {
         font-weight: bold;
     }

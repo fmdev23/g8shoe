@@ -32,7 +32,7 @@ namespace SellShoe
                     if (dataPass != null && dataPass.Count() > 0) { 
                         Session["Admin"] = txtUsername.Text;
                         Session["Password"] = txtPassword.Text;
-                        Response.Redirect("./Admin/Dash.aspx");
+                        Response.Redirect("./Admin/QLDashboard.aspx");
                     } else {
                         lblPassword.Text = "Sai mật khẩu";
                     }

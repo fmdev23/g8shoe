@@ -1,0 +1,265 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="QLOrder.aspx.cs" Inherits="SellShoe.Admin.QLOrder" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADMIN</title>
+    <link rel="stylesheet" href="~/Admin/admin.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="app-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="logo-container">
+                    <i class="fad fa-layer-group"></i>
+                    <h1>G8Shoe | ADMIN</h1>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li>
+                            <a href="Dash.aspx" class="nav-item">
+                                <i class="fad fa-th-large"></i>
+                                <span>Dữ liệu</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ProductCategory.aspx" class="nav-item">
+                                <i class="fad fa-list-ul"></i>
+                                <span>Danh mục</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Product.aspx" class="nav-item">
+                                <i class="fad fa-shopping-bag"></i>
+                                <span>Sản phẩm</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="OrderDetail.aspx" class="nav-item">
+                                <i class="fad fa-shopping-cart"></i>
+                                <span>Đơn hàng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Contact.aspx" class="nav-item">
+                                <i class="fad fa-star-half-alt"></i>
+                                <span>Phản hồi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Team.aspx" class="nav-item">
+                                <i class="fad fa-users"></i>
+                                <span>Thành viên</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="sidebar-divider"></div>
+                    <ul>
+                        <li>
+                            <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" CssClass="nav-item">
+<i class="fad fa-sign-out"></i>
+<span>Đăng xuất</span>
+                            </asp:LinkButton>
+
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="dash.aspx">Admin</a>
+                    <i class="fad fa-chevron-right"></i>
+                    <span id="breadcrumbTitle">Đang tải...</span>
+                </div>
+
+                <!-- Content Card -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>QUẢN LÝ ĐƠN HÀNG</h2>
+                        <div class="header-actions">
+                            <div class="search-container">
+                                <i class="fal fa-search"></i>
+                                <input type="text" id="searchOrderInput" placeholder="Tìm đơn hàng" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <asp:Repeater ID="rptOrders" runat="server" OnItemCommand="rptOrders_ItemCommand">
+                            <HeaderTemplate>
+                                <table class="products-table" id="ordersTable">
+                                    <thead>
+                                        <tr>
+                                            <th>H.Ảnh</th>
+                                            <th>Mã đơn</th>
+                                            <th>Tên KH</th>
+                                            <th>SDT</th>
+                                            <th>Email</th>
+                                            <th>Đ.Chỉ</th>
+                                            <th>S.Lượng</th>
+                                            <th>Tổng</th>
+                                            <th>T.Gian</th>
+                                            <th>Tr.Thái</th>
+                                            <th>Xoá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            </HeaderTemplate>
+
+                            <ItemTemplate>
+                                <tr>
+                                    <th>
+                                        <img src='<%# Eval("ProductImage") %>' style="width: 60px; height: 60px; object-fit: cover;" />
+                                    </th>
+                                    <th><%# Eval("Order.Code") %></th>
+                                    <th><%# Eval("Order.CustomerName") %></th>
+                                    <th><%# Eval("Order.Phone") %></th>
+                                    <th><%# Eval("Order.Email") %></th>
+                                    <th><%# Eval("Order.Address") %></th>
+                                    <th><%# Eval("Order.Quantity") %></th>
+                                    <th><%# string.Format("{0:N0}", Eval("Order.TotalAmount")).Replace(",", ".") %></th>
+                                    <th><%# Eval("Order.CreatedDate", "{0:dd/MM/yy}") %></th>
+                                    <td>
+                                        <span class='status-badge <%# (Convert.ToInt32(Eval("Order.Status")) == 0) ? "processing" : "completed" %>'
+                                            onclick='toggleStatus(<%# Eval("Order.id") %>, this)' style="cursor: pointer">
+                                            <%# (Convert.ToInt32(Eval("Order.Status")) == 0) ? "Đang chờ" : "Đã xác nhận" %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <asp:LinkButton runat="server"
+                                            CssClass="cancel-btn"
+                                            CommandName="DeleteOrder"
+                                            CommandArgument='<%# Eval("Order.id") %>'
+                                            OnClientClick='<%# "return deleteOrder(" + Eval("Order.id") + ");" %>'><i class="fad fa-trash"></i>
+                                        </asp:LinkButton>
+                                    </td>
+
+                                </tr>
+                            </ItemTemplate>
+
+                            <FooterTemplate>
+                                </tbody>
+        </table>
+                            </FooterTemplate>
+                        </asp:Repeater>
+                    </div>
+                </div>
+
+
+            </main>
+        </div>
+
+        <script>
+            function deleteOrder(id) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn muốn xóa đơn hàng này?',
+                    text: 'Hành động này không thể hoàn tác! Hãy chắc đây là đơn lỗi hoặc lý do khác! Ảnh hưởng trực tiếp đến doanh thu.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'OrderDetail.aspx?deleteId=' + id;
+                    }
+                });
+                return false;
+            }
+
+        </script>
+
+        <script>
+            function toggleStatus(orderId, span) {
+                PageMethods.ToggleOrderStatus(orderId, function (result) {
+                    if (result) {
+                        if (span.classList.contains("processing")) {
+                            span.classList.remove("processing");
+                            span.classList.add("completed");
+                            span.innerText = "Đã xác nhận";
+                        } else {
+                            span.classList.remove("completed");
+                            span.classList.add("processing");
+                            span.innerText = "Đang chờ";
+                        }
+                    } else {
+                        alert("Không thể cập nhật trạng thái.");
+                    }
+                });
+            }
+        </script>
+
+        <!-- xử lý tìm kiếm đơn hàng theo mã, tên, SDT, Email, Đ.Chỉ, S.Lượng, Tổng, T.Gian -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const searchInput = document.getElementById("searchOrderInput");
+                const table = document.getElementById("ordersTable");
+                const rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+                searchInput.addEventListener("input", function () {
+                    const keyword = this.value.toLowerCase();
+
+                    for (let row of rows) {
+                        const cells = row.getElementsByTagName("th");
+                        let match = false;
+
+                        for (let cell of cells) {
+                            if (cell.textContent.toLowerCase().includes(keyword)) {
+                                match = true;
+                                break;
+                            }
+                        }
+
+                        row.style.display = match ? "" : "none";
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            // Lấy file hiện tại
+            const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+
+            document.querySelectorAll('.sidebar .nav-item').forEach(link => {
+                const hrefPage = link.getAttribute('href');
+                if (hrefPage && hrefPage.toLowerCase() === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Tạo map ánh xạ từ file -> tiêu đề breadcrumb
+            const breadcrumbMap = {
+                'productcategory.aspx': 'Quản lý danh mục sản phẩm',
+                'dash.aspx': 'Dữ liệu',
+                'product.aspx': 'Quản lý sản phẩm',
+                'orderdetail.aspx': 'Thông tin đơn hàng',
+                'contact.aspx': 'Phản hồi từ khách hàng',
+                'team.aspx': 'Quản lý thành viên',
+                'qlproduct.aspx': 'Quản lý sản phẩm',
+                'qlorder.aspx': 'Quản lý đơn hàng',
+                // Thêm các trang khác nếu cần
+            };
+
+            // Hiển thị tiêu đề tương ứng hoặc fallback mặc định
+            const breadcrumbTitle = breadcrumbMap[currentPage] || 'Trang không xác định';
+            document.getElementById('breadcrumbTitle').textContent = breadcrumbTitle;
+        </script>
+    </form>
+</body>
+</html>
