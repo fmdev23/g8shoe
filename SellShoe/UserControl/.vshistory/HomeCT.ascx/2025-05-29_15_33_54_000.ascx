@@ -86,20 +86,20 @@
                                 <span class="price-sale"><%= string.Format("{0:N0}", ((int)listNewProducts[i].Price)).Replace(",", ".") %></span>
                                 <h4 class="price"><%= string.Format("{0:N0}", ((int)listNewProducts[i].PriceSale)).Replace(",", ".") %></h4>
                                 <%
-                                    double avgRating = RatingCacheManager.GetRatingByProductId(listNewProducts[i].id); // Lấy điểm đánh giá trung bình avgRating cho sản phẩm qua lớp RatingCacheManager
-                                    int fullStars = (int)avgRating; // số sao đầy đủ
-                                    bool hasHalfStar = (avgRating - fullStars) >= 0.5; // sao phân nửa
-                                    int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); // sao rỗng
+                                    double avgRating = RatingCacheManager.GetRatingByProductId(listNewProducts[i].id);
+                                    int fullStars = (int)avgRating;
+                                    bool hasHalfStar = (avgRating - fullStars) >= 0.5;
+                                    int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
                                 %>
                                 <div class="star">
                                     <% for (int s = 0; s < fullStars; s++) { %>
-                                        <i class="fas fa-star"></i> <!-- sao đầy -->
+                                        <i class="fas fa-star"></i>
                                     <% } %>
                                     <% if (hasHalfStar) { %>
-                                        <i class="fas fa-star-half-alt"></i> <!-- sao nửa -->
+                                        <i class="fas fa-star-half-alt"></i>
                                     <% } %>
                                     <% for (int s = 0; s < emptyStars; s++) { %>
-                                        <i class="far fa-star"></i> <!-- sao rỗng -->
+                                        <i class="far fa-star"></i>
                                     <% } %>
                                 </div>
 

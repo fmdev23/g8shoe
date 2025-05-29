@@ -13,17 +13,17 @@ namespace SellShoe
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["logout"] == "true") // Kiểm tra xem có yêu cầu đăng xuất không
+            if (Request.QueryString["logout"] == "true")
             {
-                Session["user"] = null; // Xóa session người dùng
-                Response.Redirect("UserAccount.aspx"); // Quay lại trang đăng nhập
+                Session["user"] = null;
+                Response.Redirect("UserAccount.aspx");
             }
         }
 
         /// Xử lý đăng ký tài khoản
-        protected void btnRegister_Click(object sender, EventArgs e) // Xử lý sự kiện khi người dùng nhấn nút đăng ký
+        protected void btnRegister_Click(object sender, EventArgs e)
         {
-            string fullName = txtFullName.Text.Trim(); // Lấy tên đầy đủ từ TextBox
+            string fullName = txtFullName.Text.Trim();
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text.Trim();
             string confirmPassword = txtConfirmPassword.Text.Trim();
@@ -48,7 +48,7 @@ namespace SellShoe
             try
             {
                 // Kiểm tra xem email đã tồn tại chưa
-                var existingUser = db.tb_Users.FirstOrDefault(u => u.Email == email); // Tìm user theo email
+                var existingUser = db.tb_Users.FirstOrDefault(u => u.Email == email);
                 if (existingUser != null)
                 {
                     ShowMessage("Email đã được sử dụng.");
@@ -77,20 +77,20 @@ namespace SellShoe
         }
 
         /// Xử lý đăng nhập
-        protected void btnLogin_Click(object sender, EventArgs e) // Xử lý sự kiện khi người dùng nhấn nút đăng nhập
+        protected void btnLogin_Click(object sender, EventArgs e)
         {
             string email = txtLoginEmail.Text.Trim();
             string password = txtLoginPassword.Text.Trim();
 
             // Kiểm tra dữ liệu đầu vào
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) 
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
                 ShowMessage("Vui lòng nhập đầy đủ thông tin!");
                 return;
             }
 
             // Kiểm tra tài khoản có tồn tại không
-            var user = db.tb_Users.SingleOrDefault(u => u.Email == email && u.Password == password); // Tìm user theo email và mật khẩu
+            var user = db.tb_Users.SingleOrDefault(u => u.Email == email && u.Password == password);
 
             if (user != null)
             {
@@ -105,9 +105,9 @@ namespace SellShoe
         }
 
         /// Hiển thị thông báo dạng alert + xử lý chuyển form nếu cần
-        private void ShowMessage(string message, bool redirect = false) 
+        private void ShowMessage(string message, bool redirect = false)
         {
-            string script = $"alert('{message}');"; // Tạo script alert với thông điệp
+            string script = $"alert('{message}');";
 
             // Nếu chuyển từ đăng ký -> đăng nhập
             if (redirect)

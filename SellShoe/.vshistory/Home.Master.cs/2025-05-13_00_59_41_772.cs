@@ -51,16 +51,18 @@ namespace SellShoe
             }
             catch (System.ComponentModel.Win32Exception ex)
             {
+                // Log lỗi chi tiết để kiểm tra nguyên nhân
+                // Ví dụ: Log ex.Message hoặc ex.StackTrace
                 Console.WriteLine(ex.Message);
             }
 
         }
 
-        protected void Newsletter_Submit_Click(object sender, EventArgs e) // Xử lý sự kiện khi người dùng đăng ký nhận bản tin
+        protected void Newsletter_Submit_Click(object sender, EventArgs e)
         {
-            string email = txtEmail.Text.Trim(); // Lấy email từ TextBox
+            string email = txtEmail.Text.Trim();
 
-            if (!string.IsNullOrEmpty(email)) // Kiểm tra email không rỗng
+            if (!string.IsNullOrEmpty(email))
             {
                 try
                 {

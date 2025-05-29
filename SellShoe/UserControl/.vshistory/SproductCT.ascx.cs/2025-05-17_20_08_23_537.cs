@@ -31,7 +31,7 @@ namespace SellShoe.UserControl
         void LoadSanPham()
         {
             int id = 0;
-            if (Request.QueryString["id"] != null) // Kiểm tra xem có tham số "id" trong chuỗi truy vấn không
+            if (Request.QueryString["id"] != null)
             {
                 int.TryParse(Request.QueryString["id"], out id); // Chuyển đổi giá trị "id" từ chuỗi sang số nguyên. Nếu sai định dạng thì id vẫn là 0.
             }
@@ -48,18 +48,18 @@ namespace SellShoe.UserControl
             }
         }
 
-        void LoadBestSeller() //load 5 sản phẩm cùng danh mục với sản phẩm hiện tại
+        void LoadBestSeller()
         {
-            if (sanPham != null) // Kiểm tra xem sản phẩm hiện tại có tồn tại không
+            if (sanPham != null)
             {
-                int currentProductId = sanPham.id; // Lấy id của sản phẩm hiện tại
-                int currentCategoryId = sanPham.ProductCategoryId; // Lấy id của danh mục sản phẩm hiện tại
+                int currentProductId = sanPham.id;
+                int currentCategoryId = sanPham.ProductCategoryId;
 
                 // Lấy 5 sản phẩm cùng danh mục, khác sản phẩm hiện tại
-                listSP = db.tb_Products // Lấy tất cả sản phẩm
+                listSP = db.tb_Products
                            .Where(p => p.IsActive == true
-                                   && p.ProductCategoryId == currentCategoryId // Chỉ lấy sản phẩm cùng danh mục
-                                   && p.id != currentProductId) // Loại trừ sản phẩm hiện tại
+                                   && p.ProductCategoryId == currentCategoryId
+                                   && p.id != currentProductId)
                            .Take(5)
                            .ToList();
             }
@@ -69,27 +69,29 @@ namespace SellShoe.UserControl
             }
         }
 
+
+
         void loadRV()
         {
-            int productId = 0; // Biến để lưu id của sản phẩm
-            if (Request.QueryString["id"] != null) // Kiểm tra xem có tham số "id" trong chuỗi truy vấn không
+            int productId = 0;
+            if (Request.QueryString["id"] != null)
             {
-                int.TryParse(Request.QueryString["id"], out productId); // Chuyển đổi giá trị "id" từ chuỗi sang số nguyên. Nếu sai định dạng thì productId vẫn là 0.
+                int.TryParse(Request.QueryString["id"], out productId);
             }
 
-            var data = db.tb_Reviews.Where(r => r.ProductId == productId) // Lấy tất cả đánh giá của sản phẩm theo id
-                        .OrderByDescending(r => r.CreatedAt); // Sắp xếp theo ngày tạo giảm dần
+            var data = db.tb_Reviews.Where(r => r.ProductId == productId)
+                        .OrderByDescending(r => r.CreatedAt);
 
-            if (data != null && data.Any()) // Kiểm tra xem có đánh giá nào không
+            if (data != null && data.Any())
             {
                 listRV = data.ToList();
             }
         }
 
-        protected void btnSubmitReview_Click(object sender, EventArgs e) // Xử lý sự kiện khi người dùng gửi đánh giá sản phẩm
+        protected void btnSubmitReview_Click(object sender, EventArgs e)
         {
 
-            int productId = 0; // Biến để lưu id của sản phẩm
+            int productId = 0;
             if (Request.QueryString["id"] != null)
             {
                 int.TryParse(Request.QueryString["id"], out productId);
@@ -97,10 +99,10 @@ namespace SellShoe.UserControl
 
             if (productId > 0)
             {
-                int rating = 0; // Biến để lưu đánh giá (rating) của người dùng
-                int.TryParse(hfRating.Value, out rating); // Chuyển đổi giá trị đánh giá từ HiddenField sang số nguyên. Nếu sai định dạng thì rating vẫn là 0.
+                int rating = 0;
+                int.TryParse(hfRating.Value, out rating);
 
-                if (!string.IsNullOrEmpty(txtReviewerName.Text) && rating > 0) // Kiểm tra xem tên người đánh giá có được nhập và rating có lớn hơn 0 không
+                if (!string.IsNullOrEmpty(txtReviewerName.Text) && rating > 0) 
                 {
                     var newReview = new tb_Review
                     {

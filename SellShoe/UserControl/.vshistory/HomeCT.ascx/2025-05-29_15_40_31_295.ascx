@@ -99,7 +99,7 @@
                                         <i class="fas fa-star-half-alt"></i> <!-- sao nửa -->
                                     <% } %>
                                     <% for (int s = 0; s < emptyStars; s++) { %>
-                                        <i class="far fa-star"></i> <!-- sao rỗng -->
+                                        <i class="far fa-star"></i> <!-- sao đầy -->
                                     <% } %>
                                 </div>
 

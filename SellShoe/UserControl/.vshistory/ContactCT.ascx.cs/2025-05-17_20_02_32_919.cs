@@ -13,7 +13,7 @@ namespace SellShoe.UserControl
     public partial class ContactCT : System.Web.UI.UserControl
     {
         public QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
-        public static List<tb_ContactInfo> listInfo = new List<tb_ContactInfo>(); // Danh sách thông tin liên hệ
+        public static List<tb_ContactInfo> listInfo = new List<tb_ContactInfo>();
         public static List<tb_ContactPeople> listTV = new List<tb_ContactPeople>();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -34,10 +34,10 @@ namespace SellShoe.UserControl
             listTV = db.tb_ContactPeoples.ToList();
         }
 
-        protected void btnSubmit_Click(object sender, EventArgs e) // Xử lý sự kiện khi người dùng gửi phản hồi
+        protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            string name = txtContactName.Text.Trim(); // Lấy tên người gửi
-            string email = txtContactEmail.Text.Trim(); // Lấy email người gửi
+            string name = txtContactName.Text.Trim();
+            string email = txtContactEmail.Text.Trim();
             string subject = txtContactSubject.Text.Trim();
             string content = txtContactContent.Text.Trim();
 

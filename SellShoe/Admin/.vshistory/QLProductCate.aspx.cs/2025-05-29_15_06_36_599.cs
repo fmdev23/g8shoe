@@ -116,7 +116,6 @@ namespace SellShoe.Admin
             LoadCategories();
         }
 
-        // Sự kiện khi người dùng xóa 1 dòng trong GridView
         protected void gvCategory_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int id = (int)gvCategory.DataKeys[e.RowIndex].Value;
@@ -130,7 +129,6 @@ namespace SellShoe.Admin
             LoadCategories();
         }
 
-        // Sự kiện khi người dùng nhấn nút lưu danh mục mới trong modal popup
         protected void btnSaveCategory_Click(object sender, EventArgs e)
         {
             // Lấy dữ liệu từ control
@@ -138,7 +136,6 @@ namespace SellShoe.Admin
             string description = txtModalDescription.Text.Trim();
             string alias = txtModalAlias.Text.Trim();
 
-            // Kiểm tra tiêu đề không được để trống
             if (!string.IsNullOrEmpty(title))
             {
                 var newCate = new tb_ProductCategory
@@ -152,7 +149,7 @@ namespace SellShoe.Admin
 
                 db.tb_ProductCategories.InsertOnSubmit(newCate);
                 db.SubmitChanges();
-                
+
                 LoadCategories();
             }
 
@@ -165,10 +162,9 @@ namespace SellShoe.Admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModal", "closeModal();", true);
         }
 
-        // Class model hỗ trợ (nếu cần dùng) cho danh mục sản phẩm
-        public class CategoryModel // Model để hỗ trợ hiển thị danh mục sản phẩm
+        public class CategoryModel
         {
-            public int id { get; set; } 
+            public int id { get; set; }
             public string title { get; set; }
             public string description { get; set; }
             public string alias { get; set; }

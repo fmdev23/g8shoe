@@ -166,7 +166,7 @@ namespace SellShoe.Admin
         }
 
         // Class model hỗ trợ (nếu cần dùng) cho danh mục sản phẩm
-        public class CategoryModel // Model để hỗ trợ hiển thị danh mục sản phẩm
+        public class CategoryModel
         {
             public int id { get; set; } 
             public string title { get; set; }

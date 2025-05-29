@@ -152,7 +152,7 @@ namespace SellShoe.Admin
 
                 db.tb_ProductCategories.InsertOnSubmit(newCate);
                 db.SubmitChanges();
-                
+
                 LoadCategories();
             }
 
@@ -165,10 +165,9 @@ namespace SellShoe.Admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModal", "closeModal();", true);
         }
 
-        // Class model hỗ trợ (nếu cần dùng) cho danh mục sản phẩm
-        public class CategoryModel // Model để hỗ trợ hiển thị danh mục sản phẩm
+        public class CategoryModel
         {
-            public int id { get; set; } 
+            public int id { get; set; }
             public string title { get; set; }
             public string description { get; set; }
             public string alias { get; set; }

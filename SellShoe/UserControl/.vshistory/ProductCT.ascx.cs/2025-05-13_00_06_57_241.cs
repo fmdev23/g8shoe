@@ -21,29 +21,29 @@ namespace SellShoe.UserControl
             loadProduct();
         }
 
-        void loadProduct() // Hàm này sẽ load tất cả sản phẩm từ database
+        void loadProduct()
         {
-            var data = from q in db.tb_Products // Lấy tất cả sản phẩm từ bảng tb_Products
+            var data = from q in db.tb_Products
                        where q.IsActive == true
                        select q;
             if (data != null && data.Count() > 0)
             {
-                listSP = data.ToList(); // Chuyển đổi kết quả truy vấn thành danh sách sản phẩm
+                listSP = data.ToList();
 
                 // Tính Rating trung bình
                 listProductWithRating = (from p in db.tb_Products
                                          where p.IsActive == true
-                                         select new ProductWithRating // Tạo một đối tượng ProductWithRating cho mỗi sản phẩm
+                                         select new ProductWithRating
                                          {
-                                             Product = p, // Lưu sản phẩm
+                                             Product = p,
                                              AverageRating = (from rv in db.tb_Reviews
                                                               where rv.ProductId == p.id
-                                                              select rv.Rating).Average() // Tính trung bình đánh giá
+                                                              select rv.Rating).Average()
                                          }).ToList();
             }
         }
 
-        public class ProductWithRating // Lớp để lưu trữ sản phẩm và xếp hạng trung bình của nó
+        public class ProductWithRating
         {
             public tb_Product Product { get; set; } 
             public double? AverageRating { get; set; } // Dùng double? (nullable)

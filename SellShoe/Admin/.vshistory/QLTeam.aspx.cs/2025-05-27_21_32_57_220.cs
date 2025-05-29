@@ -59,39 +59,39 @@ namespace SellShoe.Admin
 
         private void LoadMembers()
         {
-            dgMembers.DataSource = db.tb_ContactPeoples.ToList(); // Lấy danh sách thành viên từ CSDL
-            dgMembers.DataBind(); // Ràng buộc dữ liệu vào DataGrid
+            dgMembers.DataSource = db.tb_ContactPeoples.ToList();
+            dgMembers.DataBind();
         }
 
         protected void dgMembers_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
         {
-            dgMembers.CurrentPageIndex = e.NewPageIndex; // Cập nhật chỉ mục trang hiện tại
-            LoadMembers(); // Tải lại danh sách thành viên
+            dgMembers.CurrentPageIndex = e.NewPageIndex;
+            LoadMembers();
         }
 
         protected void dgMembers_EditCommand(object source, DataGridCommandEventArgs e)
         {
-            dgMembers.EditItemIndex = e.Item.ItemIndex; // Đặt chỉ mục của mục đang chỉnh sửa
-            LoadMembers();  // Tải lại danh sách thành viên để hiển thị chế độ chỉnh sửa
+            dgMembers.EditItemIndex = e.Item.ItemIndex;
+            LoadMembers();
         }
 
         protected void dgMembers_CancelCommand(object source, DataGridCommandEventArgs e)
         {
-            dgMembers.EditItemIndex = -1; // Hủy chế độ chỉnh sửa
-            LoadMembers(); // Tải lại danh sách thành viên
+            dgMembers.EditItemIndex = -1;
+            LoadMembers();
         }
 
         protected void dgMembers_UpdateCommand(object source, DataGridCommandEventArgs e)
         {
-            int id = (int)dgMembers.DataKeys[e.Item.ItemIndex]; // Lấy ID của thành viên từ DataKeys
+            int id = (int)dgMembers.DataKeys[e.Item.ItemIndex];
 
-            var member = db.tb_ContactPeoples.FirstOrDefault(m => m.Id == id); // Tìm thành viên theo ID
-            if (member != null) // Nếu tìm thấy thành viên
+            var member = db.tb_ContactPeoples.FirstOrDefault(m => m.Id == id);
+            if (member != null)
             {
-                member.FullName = ((TextBox)e.Item.FindControl("txtFullName")).Text.Trim(); // Lấy giá trị từ TextBox
-                member.Position = ((TextBox)e.Item.FindControl("txtPosition")).Text.Trim(); // Cập nhật vị trí
-                member.Phone = ((TextBox)e.Item.FindControl("txtPhone")).Text.Trim(); // Cập nhật số điện thoại
-                member.Email = ((TextBox)e.Item.FindControl("txtEmail")).Text.Trim(); // Cập nhật email
+                member.FullName = ((TextBox)e.Item.FindControl("txtFullName")).Text.Trim();
+                member.Position = ((TextBox)e.Item.FindControl("txtPosition")).Text.Trim();
+                member.Phone = ((TextBox)e.Item.FindControl("txtPhone")).Text.Trim();
+                member.Email = ((TextBox)e.Item.FindControl("txtEmail")).Text.Trim();
 
                 db.SubmitChanges();
             }
@@ -102,8 +102,8 @@ namespace SellShoe.Admin
 
         protected void dgMembers_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
-            int id = (int)dgMembers.DataKeys[e.Item.ItemIndex]; // Lấy ID của thành viên từ DataKeys
-            var member = db.tb_ContactPeoples.FirstOrDefault(m => m.Id == id); // Tìm thành viên theo ID
+            int id = (int)dgMembers.DataKeys[e.Item.ItemIndex];
+            var member = db.tb_ContactPeoples.FirstOrDefault(m => m.Id == id);
             if (member != null)
             {
                 db.tb_ContactPeoples.DeleteOnSubmit(member);
@@ -115,20 +115,24 @@ namespace SellShoe.Admin
 
         protected void btnSaveMember_Click(object sender, EventArgs e)
         {
-            if (!Page.IsValid) return; // Kiểm tra tính hợp lệ của trang
+            if (!Page.IsValid) return;
 
             try
             {
-                string imagePath = ""; // Biến để lưu đường dẫn ảnh
+                string imagePath = "";
 
                 if (fuImage.HasFile)
                 {
-                    string fileName = Path.GetFileName(fuImage.FileName); // Lấy tên file từ FileUpload control
-                    string peopleFolder = "/img/people/"; // Thư mục lưu ảnh thành viên
+                    string fileName = Path.GetFileName(fuImage.FileName);
+                    string peopleFolder = "/img/people/";
                     string serverFolder = Server.MapPath(peopleFolder);
 
+                    // Tạo thư mục nếu chưa tồn tại
+                    if (!Directory.Exists(serverFolder))
+                        Directory.CreateDirectory(serverFolder);
+
                     // Tạo tên file duy nhất để tránh trùng
-                    string uniqueFileName = DateTime.Now.Ticks + "_" + fileName;
+                    string uniqueFileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + fileName;
                     string filePath = peopleFolder + uniqueFileName;
 
                     // Lưu file ảnh lên server
@@ -138,10 +142,10 @@ namespace SellShoe.Admin
                     imagePath = filePath;
                 }
 
-                int memberId = 0; // Biến để lưu ID của thành viên
-                int.TryParse(hfMemberId.Value, out memberId); // Lấy ID từ HiddenField
+                int memberId = 0;
+                int.TryParse(hfMemberId.Value, out memberId);
 
-                if (memberId == 0) // Nếu ID là 0, tức là đang thêm mới thành viên
+                if (memberId == 0)
                 {
                     // Thêm mới thành viên
                     var member = new tb_ContactPeople
@@ -158,15 +162,15 @@ namespace SellShoe.Admin
                 else
                 {
                     // Cập nhật thành viên
-                    var member = db.tb_ContactPeoples.FirstOrDefault(m => m.Id == memberId); // Tìm thành viên theo ID
+                    var member = db.tb_ContactPeoples.FirstOrDefault(m => m.Id == memberId);
                     if (member != null)
                     {
                         member.FullName = txtMemberFullName.Text.Trim();
                         member.Position = txtMemberPosition.Text.Trim();
                         member.Phone = txtMemberPhone.Text.Trim();
                         member.Email = txtMemberEmail.Text.Trim();
-                        if (!string.IsNullOrEmpty(imagePath)) // Nếu có ảnh mới được tải lên
-                            member.Avatar = imagePath; // Cập nhật đường dẫn ảnh
+                        if (!string.IsNullOrEmpty(imagePath))
+                            member.Avatar = imagePath;
                     }
                 }
 
@@ -179,16 +183,20 @@ namespace SellShoe.Admin
                 txtMemberEmail.Text = "";
                 hfMemberId.Value = "0";
 
-                LoadMembers(); // Tải lại danh sách thành viên
-                upMembers.Update(); // Cập nhật lại DataGrid
+                LoadMembers();
+                upMembers.Update();
 
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "closeModal", "closeModal();", true); // Đóng modal nếu có
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "closeModal", "closeModal();", true);
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "error", "alert('Lỗi khi lưu thành viên: " + ex.Message.Replace("'", "\\'") + "');", true); // Hiển thị thông báo lỗi
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "error", "alert('Lỗi khi lưu thành viên: " + ex.Message.Replace("'", "\\'") + "');", true);
             }
         }
+
+
+
+
 
     }
 }

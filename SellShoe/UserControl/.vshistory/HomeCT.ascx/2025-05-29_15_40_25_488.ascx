@@ -96,10 +96,10 @@
                                         <i class="fas fa-star"></i> <!-- sao đầy -->
                                     <% } %>
                                     <% if (hasHalfStar) { %>
-                                        <i class="fas fa-star-half-alt"></i> <!-- sao nửa -->
+                                        <i class="fas fa-star-half-alt"></i> <!-- sao đầy -->
                                     <% } %>
                                     <% for (int s = 0; s < emptyStars; s++) { %>
-                                        <i class="far fa-star"></i> <!-- sao rỗng -->
+                                        <i class="far fa-star"></i>
                                     <% } %>
                                 </div>
 
