@@ -83,7 +83,7 @@ namespace SellShoe
             string password = txtLoginPassword.Text.Trim();
 
             // Kiểm tra dữ liệu đầu vào
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) // Kiểm tra xem email và mật khẩu có rỗng không
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) 
             {
                 ShowMessage("Vui lòng nhập đầy đủ thông tin!");
                 return;

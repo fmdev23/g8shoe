@@ -63,14 +63,14 @@ namespace SellShoe.Admin
             rptFeedback.DataSource = feedbacks; // Gán dữ liệu cho Repeater
             rptFeedback.DataBind(); // Hiển thị ra UI
         }
-        void HandleDeleteRequest() // Xử lý yêu cầu xóa phản hồi từ URL
+        void HandleDeleteRequest()
         {
-            string deleteId = Request.QueryString["deleteId"]; // Lấy ID phản hồi cần xóa từ query string
-            if (!string.IsNullOrEmpty(deleteId)) // Kiểm tra xem có ID xóa không
+            string deleteId = Request.QueryString["deleteId"];
+            if (!string.IsNullOrEmpty(deleteId))
             {
-                int id = Convert.ToInt32(deleteId); // Chuyển đổi ID từ chuỗi sang số nguyên
-                var feedback = db.tb_ContactFeedbacks.SingleOrDefault(fb => fb.Id == id); // Tìm phản hồi theo ID
-                if (feedback != null) // Nếu tìm thấy phản hồi
+                int id = Convert.ToInt32(deleteId);
+                var feedback = db.tb_ContactFeedbacks.SingleOrDefault(fb => fb.Id == id);
+                if (feedback != null)
                 {
                     db.tb_ContactFeedbacks.DeleteOnSubmit(feedback);
                     db.SubmitChanges();
