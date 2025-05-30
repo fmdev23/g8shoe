@@ -134,7 +134,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         // Rút gọn tên sản phẩm
         document.querySelectorAll(".pro .des h5").forEach(el => {
-            const maxLength = 27;
+            const maxLength = 28;
             const text = el.innerText.trim();
             if (text.length > maxLength) {
                 el.innerText = text.slice(0, maxLength - 3) + "...";

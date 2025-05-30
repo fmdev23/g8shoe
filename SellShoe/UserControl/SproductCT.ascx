@@ -1,4 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SproductCT.ascx.cs" Inherits="SellShoe.UserControl.SproductCT" %>
+
+<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
 <section id="prodetails" class="section-p1">
     <!-- Hình ảnh sản phẩm -->
     <div class="single-pro-image">
@@ -55,6 +58,9 @@
         </div>
 
 
+        <!-- HiddenField ASP.NET để lưu productId -->
+        <asp:HiddenField ID="hfProductId" runat="server" />
+
         <!-- Chọn size -->
         <div class="size-group">
             <span class="size-option active">36</span>
@@ -66,7 +72,6 @@
             <span class="size-option">42</span>
         </div>
 
-
         <!-- Chọn số lượng + nút giỏ -->
         <div class="quantity">
             <div class="quantity_selector">
@@ -75,9 +80,21 @@
                 <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
             </div>
             <div class="red_button add_to_cart_button">
-                <a href="#" class="normal">Đặt hàng</a>
+                <a href="#" class="normal" id="btnOrderClient">Đặt hàng</a>
             </div>
         </div>
+
+        <!-- Form ẩn để gửi dữ liệu qua server -->
+        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+            <ContentTemplate>
+                <div id="orderFormContainer">
+                    <input type="hidden" name="hfSelectedSize" id="hfSelectedSize" />
+                    <input type="hidden" name="hfQuantity" id="hfQuantity" />
+                    <asp:Button ID="btnOrderServer" runat="server" OnClick="btnOrderServer_Click" Style="display: none;" />
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
 
 
         <h4>Mô tả sản phẩm</h4>
@@ -90,7 +107,6 @@
 <section class="product-tabs section-p1">
     <div class="tabs-header">
         <button class="tab-btn active" data-tab="products-details">Thông tin sản phẩm</button>
-        <!--<button class="tab-btn" data-tab="customer-photos">Hình ảnh</button>-->
         <button class="tab-btn " data-tab="customer-reviews">Đánh giá</button>
     </div>
     <div class="tab-content">
@@ -105,83 +121,100 @@
             <p>SỐ LƯỢNG HÀNG CÓ SẴN: <%=sanPham.Quantity + " Đôi"%></p>
             <p><%=sanPham.Description %></p>
             <div>
-    <%=sanPham.Detail %>
-</div>
+                <%=sanPham.Detail %>
+            </div>
         </div>
 
-    <div class="tab-pane" id="customer-reviews">
+        <div class="tab-pane" id="customer-reviews">
 
-        <section class="review-section">
-            <div class="review-container">
-                <!-- Danh sách review -->
-                <div class="review-list" id="reviewList">
-                    <% for (int i = 0; i < listRV.Count; i++)
-                        {
-                            if (listRV[i].ProductId == sanPham.id)
-                            { %>
-                    <div class="review-item">
-                        <div class="review-avatar">
-                            <img class="review-avatar" src="../img/user.jpg" />
-                        </div>
-                        <div class="review-content">
-                            <p class="review-date">
-                                <%= listRV[i].CreatedAt.HasValue ? listRV[i].CreatedAt.Value.ToString("dd/MM/yyyy") : "" %>
-                            </p>
-                            <p class="review-name">
-                                <%= listRV[i].ReviewerName %>
-                            </p>
-                            <div class="review-stars">
-                                <% 
-                                    int rating = listRV[i].Rating;
-                                    for (int star = 1; star <= 5; star++)
+            <section class="review-section">
+                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                        <ContentTemplate>
+                <div class="review-container">
+                            <!-- Danh sách review -->
+                            <div class="review-list" id="reviewList">
+                                <% for (int i = 0; i < listRV.Count; i++)
                                     {
-                                        if (star <= rating)
+                                        if (listRV[i].ProductId == sanPham.id)
                                         { %>
-                                <i class="fas fa-star"></i>
-                                <% }
-                                    else
-                                    { %>
-                                <i class="far fa-star"></i>
+                                <div class="review-item">
+                                    <div class="review-avatar">
+                                        <img class="review-avatar" src="../img/user.jpg" />
+                                    </div>
+                                    <div class="review-content">
+                                        <p class="review-date">
+                                            <%= listRV[i].CreatedAt.HasValue ? listRV[i].CreatedAt.Value.ToString("dd/MM/yyyy") : "" %>
+                                        </p>
+                                        <p class="review-name">
+                                            <%= listRV[i].ReviewerName %>
+                                        </p>
+                                        <div class="review-stars">
+                                            <% 
+                                                int rating = listRV[i].Rating;
+                                                for (int star = 1; star <= 5; star++)
+                                                {
+                                                    if (star <= rating)
+                                                    { %>
+                                            <i class="fas fa-star"></i>
+                                            <% }
+                                                else
+                                                { %>
+                                            <i class="far fa-star"></i>
+                                            <% }
+                                                } %>
+                                        </div>
+                                        <p class="review-text">
+                                            <%= listRV[i].ReviewText %>
+                                        </p>
+                                    </div>
+                                </div>
                                 <% }
                                     } %>
                             </div>
-                            <p class="review-text">
-                                <%= listRV[i].ReviewText %>
-                            </p>
-                        </div>
-                    </div>
-                    <% }
-                        } %>
+
+                            <!-- Form thêm review -->
+                            <div class="review-form">
+                                <h3>Thêm đánh giá sản phẩm</h3>
+                                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                    <ContentTemplate>
+                                        <div class="review-form-container">
+                                            <div class="form-group">
+                                                <asp:TextBox ID="txtReviewerName" runat="server" CssClass="form-control" Placeholder="Tên của bạn" required="required"></asp:TextBox>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <asp:TextBox ID="txtReviewerEmail" runat="server" CssClass="form-control" Placeholder="Email" TextMode="Email"></asp:TextBox>
+                                            </div>
+
+                                            <div class="rating-label">
+                                                <label>Đánh giá:</label>
+                                                <asp:HiddenField ID="hfRating" runat="server" Value="0" />
+                                                <div class="star-rating" id="starRating">
+                                                    <i class="far fa-star" data-value="1"></i>
+                                                    <i class="far fa-star" data-value="2"></i>
+                                                    <i class="far fa-star" data-value="3"></i>
+                                                    <i class="far fa-star" data-value="4"></i>
+                                                    <i class="far fa-star" data-value="5"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <asp:TextBox ID="txtReviewText" runat="server" CssClass="form-control" Placeholder="Đánh giá của bạn" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                                            </div>
+
+                                            <asp:Button ID="btnSubmitReview" runat="server" Text="Gửi đánh giá"
+                                                CssClass="submit-btn" OnClick="btnSubmitReview_Click" />
+                                        </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+
                 </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+            </section>
 
-                <!-- Form thêm review -->
-                <div class="review-form">
-                    <h3>Thêm đánh giá sản phẩm</h3>
-                    <asp:TextBox ID="txtReviewerName" runat="server" Placeholder="Tên của bạn"></asp:TextBox><br />
-                    <asp:TextBox ID="txtReviewerEmail" runat="server" Placeholder="Email" TextMode="Email"></asp:TextBox><br />
-
-                    <div class="rating-label">
-                        <label>Đánh giá:</label>
-                        <asp:HiddenField ID="hfRating" runat="server" />
-                        <div class="star-rating" id="starRating">
-                            <i class="far fa-star" data-value="1"></i>
-                            <i class="far fa-star" data-value="2"></i>
-                            <i class="far fa-star" data-value="3"></i>
-                            <i class="far fa-star" data-value="4"></i>
-                            <i class="far fa-star" data-value="5"></i>
-                        </div>
-                    </div>
-
-                    <asp:TextBox ID="txtReviewText" runat="server" Placeholder="Đánh giá của bạn" TextMode="MultiLine" Rows="3"></asp:TextBox><br />
-
-                    <asp:Button ID="btnSubmitReview" runat="server" Text="Gửi đánh giá" CssClass="submit-btn" OnClick="btnSubmitReview_Click" />
-                </div>
-
-            </div>
-
-        </section>
-
-    </div>
+        </div>
     </div>
 </section>
 
@@ -233,6 +266,9 @@
     </div>
 </section>
 
+<script type="text/javascript">
+    var isLoggedIn = <%= Session["user"] != null ? "true" : "false" %>;
+</script>
 
 <script>
     var MainImg = document.getElementById("MainImg");
@@ -258,20 +294,67 @@
 
 <!-- hiện popup thông báo đã gửi đánh giá thành công -->
 <script type="text/javascript">
-    function showSuccessToast() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Gửi đánh giá thành công!',
-            showConfirmButton: false,
-            timer: 5000
+    // Reset star rating display
+    function resetStarRating() {
+        const stars = document.querySelectorAll('#starRating i');
+        stars.forEach(s => {
+            s.classList.remove('fas');
+            s.classList.add('far');
+        });
+        document.getElementById('<%= hfRating.ClientID %>').value = "0";
+    }
+
+    // Update review list without page reload
+    function updateReviewList() {
+        // Find the UpdatePanel containing the review list
+        var updatePanel = document.getElementById('<%= UpdatePanel1.ClientID %>');
+        if (updatePanel) {
+            // Trigger an async postback to refresh the UpdatePanel
+            __doPostBack('<%= UpdatePanel1.ClientID %>', '');
+        }
+    }
+
+    // Add this to handle UpdatePanel's partial postback
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    prm.add_endRequest(function () {
+        // Re-initialize star rating handlers after partial postback
+        initializeStarRating();
+    });
+
+    // Star rating initialization function
+    function initializeStarRating() {
+        const stars = document.querySelectorAll('#starRating i');
+        const ratingField = document.getElementById('<%= hfRating.ClientID %>');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const rating = this.getAttribute('data-value');
+                ratingField.value = rating;
+
+                stars.forEach(s => {
+                    if (parseInt(s.getAttribute('data-value')) <= rating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                    } else {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    }
+                });
+            });
         });
     }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeStarRating();
+    });
 </script>
 
 <!-- xử lý rating -->
 <script>
     const stars = document.querySelectorAll('#starRating i');
     const ratingField = document.getElementById('<%= hfRating.ClientID %>');
+    const submitReviewBtn = document.getElementById('<%= btnSubmitReview.ClientID %>');
 
     stars.forEach(star => {
         star.addEventListener('click', function () {
@@ -290,12 +373,37 @@
             });
         });
     });
-</script>
 
-<script type="text/javascript">
-    var isLoggedIn = <%= Session["user"] != null ? "true" : "false" %>;
-</script>
+    // Add form validation
+    if (submitReviewBtn) {
+        submitReviewBtn.addEventListener('click', function (e) {
+            const nameInput = document.getElementById('<%= txtReviewerName.ClientID %>');
+            const rating = document.getElementById('<%= hfRating.ClientID %>').value;
 
+            if (!nameInput.value.trim()) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Vui lòng nhập tên của bạn.'
+                });
+                return false;
+            }
+
+            if (rating === '0') {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn số sao đánh giá.'
+                });
+                return false;
+            }
+
+            return true;
+        });
+    }
+</script>
 
 <script>
     // Xử lý chọn size
@@ -329,28 +437,36 @@
         quantityValue.textContent = quantity;
     });
 
-    // Xử lý click nút "Đặt hàng"
-    const orderBtn = document.querySelector('.add_to_cart_button');
-
-    orderBtn.addEventListener('click', function (e) {
+    // Xử lý click Đặt hàng
+    const btnOrderClient = document.getElementById('btnOrderClient');
+    btnOrderClient.addEventListener('click', (e) => {
         e.preventDefault();
-        //Kiểm tra đã đăng nhập chưa
+
         if (!isLoggedIn) {
-            alert("Bạn cần đăng nhập trước khi đặt hàng.");
-            window.location.href = "UserAccount.aspx";
+            Swal.fire({
+                icon: 'warning',
+                title: 'Bạn cần đăng nhập để đặt hàng!',
+                showConfirmButton: true,
+                confirmButtonText: 'Đăng nhập ngay'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'useraccount.aspx';
+                }
+            });
             return;
         }
 
-        const productId = document.getElementById('productId')?.value || "";
-        const imageUrl = document.getElementById('MainImg')?.getAttribute('src') || "";
-        const title = document.querySelector('.single-pro-details h2')?.textContent.trim() || "";
-        const price = document.querySelector('.price-box .new-price')?.textContent.trim() || "";
-        const quantity = parseInt(document.getElementById('quantity_value')?.textContent || "1");
+        // Gán giá trị vào input hidden
+        document.getElementById('hfSelectedSize').value = selectedSize;
+        document.getElementById('hfQuantity').value = quantity;
 
-        const url = `checkout.aspx?productId=${encodeURIComponent(productId)}&size=${encodeURIComponent(selectedSize)}&quantity=${encodeURIComponent(quantity)}&img=${encodeURIComponent(imageUrl)}&title=${encodeURIComponent(title)}&price=${encodeURIComponent(price)}`;
-
-        window.location.href = url;
+        // Submit form để xử lý ở server (btnOrderServer_Click)
+        var btnOrderServer = document.getElementById('<%= btnOrderServer.ClientID %>');
+        if (btnOrderServer) {
+            btnOrderServer.click();
+        }
     });
+
 
     //Xử lý click các tab
     document.addEventListener("DOMContentLoaded", function () {

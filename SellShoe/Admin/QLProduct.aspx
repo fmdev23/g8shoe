@@ -155,7 +155,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateColumn>
 
-                                <asp:TemplateColumn HeaderText="New">
+                                <asp:TemplateColumn HeaderText="SP New">
                                     <ItemTemplate>
                                         <%# Convert.ToBoolean(Eval("IsHome")) ? "✔" : "✘" %>
                                     </ItemTemplate>

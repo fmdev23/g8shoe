@@ -7,118 +7,153 @@ using System.Web.UI.WebControls;
 
 namespace SellShoe
 {
-    public partial class Checkout : System.Web.UI.Page
+    public partial class Checkout : Page
     {
         public QuanLyBanGiayDataContext db = new QuanLyBanGiayDataContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!IsPostBack)
+            {
+                if (Session["OrderProduct"] != null)
+                {
+                    LoadOrderInfo();
+                }
+                else
+                {
+                    Response.Redirect("home.aspx");
+                }
+            }
+        }
+
+        private void LoadOrderInfo()
+        {
+            if (Session["OrderProduct"] != null)
+            {
+                dynamic orderProduct = Session["OrderProduct"];
+
+                // Hiển thị thông tin sản phẩm
+                lblOrderTitle.Text = orderProduct.Title;
+                lblOrderTitle2.Text = orderProduct.Title;
+                lblOrderSize.Text = orderProduct.Size;
+                lblOrderQuantity.Text = orderProduct.Quantity.ToString();
+
+                // Set hình ảnh
+                imgOrderProduct.ImageUrl = orderProduct.Image;
+
+                // Tính toán giá
+                decimal priceSale = (decimal)orderProduct.PriceSale;
+                int quantity = (int)orderProduct.Quantity;
+                decimal totalAmount = priceSale * quantity;
+
+                // Format giá tiền VND
+                lblOrderPrice.Text = priceSale.ToString("N0") + " VND";
+                lblOrderTotal.Text = totalAmount.ToString("N0") + " VND";
+            }
         }
 
         protected void btnPay_Click(object sender, EventArgs e)
         {
             try
             {
-                // 1. Lấy dữ liệu người dùng từ form
                 string name = txtFullName.Text.Trim();
                 string phone = txtPhone.Text.Trim();
                 string email = txtEmail.Text.Trim();
                 string address = txtAddress.Text.Trim();
 
-                // Kiểm tra dữ liệu đầu vào từ người dùng
                 if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(address))
                 {
-                    Response.Write("<script>alert('Vui lòng điền đầy đủ thông tin.');</script>");
+                    ScriptManager.RegisterStartupScript(this, GetType(), "AlertMessage",
+                        "Swal.fire({ icon: 'warning', title: 'Thông báo', text: 'Vui lòng điền đầy đủ thông tin.' });", true);
                     return;
                 }
 
-                // 2. Lấy dữ liệu sản phẩm từ QueryString
-                int productId; // ID sản phẩm
-                int quantity; // Số lượng sản phẩm
-                decimal price; // Giá sản phẩm
-
-                if (!int.TryParse(Request.QueryString["productId"], out productId) || // Lấy productId từ QueryString
-                    !int.TryParse(Request.QueryString["quantity"], out quantity) || // Lấy quantity từ QueryString
-                    !decimal.TryParse(Request.QueryString["price"].Replace(".", ""), out price)) // xử lý số có dấu chấm
+                if (Session["OrderProduct"] == null)
                 {
-                    Response.Write("<script>alert('Dữ liệu sản phẩm không hợp lệ.');</script>"); // Kiểm tra dữ liệu sản phẩm
+                    ScriptManager.RegisterStartupScript(this, GetType(), "AlertMessage",
+                        "Swal.fire({ icon: 'error', title: 'Lỗi', text: 'Phiên thanh toán đã hết hạn. Vui lòng chọn lại sản phẩm.' }).then(() => { window.location.href = 'product.aspx'; });", true);
                     return;
                 }
 
-                string size = Request.QueryString["size"]; // Lấy size từ QueryString
+                dynamic orderProduct = Session["OrderProduct"];
+                int productId = (int)orderProduct.ID;
+                int quantity = (int)orderProduct.Quantity;
+                decimal priceSale = (decimal)orderProduct.PriceSale;
+                string size = orderProduct.Size.ToString();
+                string productTitle = orderProduct.Title.ToString();
 
-
-                // 3. Tạo đơn hàng (tb_Order)
+                // Tạo đơn hàng
                 tb_Order order = new tb_Order
                 {
-                    Code = "DH" + DateTime.Now.ToString("ddMMyyHHmmssff"),  // Mã đơn hàng
+                    Code = "DH" + DateTime.Now.ToString("ddMMyyHHmmssff"),
                     CustomerName = name,
                     Phone = phone,
                     Address = address,
                     Email = email,
                     Quantity = quantity,
-                    TotalAmount = price * quantity,  // Tính tổng giá trị đơn hàng
+                    TotalAmount = priceSale * quantity,
                     CreatedDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
-                    TypePayment = 1,  // 1 = Thanh toán khi nhận hàng
-                    Status = 0  // 0 = Chưa xử lý
+                    TypePayment = 1,
+                    Status = 0
                 };
 
-                // Insert đơn hàng vào bảng tb_Order
                 db.tb_Orders.InsertOnSubmit(order);
                 db.SubmitChanges();
+
+                // Lưu ID đơn hàng vào Session
                 Session["lastOrderId"] = order.id;
 
-                // 3.1 Insert trạng thái mặc định "Đang chờ"
-                tb_OrderStatus status = new tb_OrderStatus
+                // Tạo trạng thái đơn hàng
+                db.tb_OrderStatus.InsertOnSubmit(new tb_OrderStatus
                 {
                     OrderID = order.id,
                     StatusTitle = "Đang chờ",
                     StatusDetail = "Đơn hàng đang chờ xác nhận.",
                     CreatedAt = DateTime.Now,
                     IsActive = true
-                };
-                db.tb_OrderStatus.InsertOnSubmit(status);
+                });
                 db.SubmitChanges();
 
-                // 4. Tạo chi tiết đơn hàng (tb_OrderDetail)
-                tb_OrderDetail detail = new tb_OrderDetail
+                // Tạo chi tiết đơn hàng
+                db.tb_OrderDetails.InsertOnSubmit(new tb_OrderDetail
                 {
-                    OrderId = order.id,  // ID của đơn hàng vừa tạo
+                    OrderId = order.id,
                     ProductId = productId,
-                    Price = price,
+                    Price = priceSale,
                     Quantity = quantity,
-                    Size = size  // Lưu size sản phẩm vào tb_OrderDetail
-                };
-
-                // Insert chi tiết đơn hàng vào bảng tb_OrderDetail
-                db.tb_OrderDetails.InsertOnSubmit(detail);
+                    Size = size
+                });
                 db.SubmitChanges();
 
-                // 5. Hiển thị thông báo thành công hoặc chuyển hướng
-                ScriptManager.RegisterStartupScript(this, GetType(), "SuccessMessage", @"
-    Swal.fire({
-        icon: 'success',
-        title: 'Đặt hàng thành công!',
-        text: 'Chúng tôi đã nhận được đơn hàng của bạn!',
-        confirmButtonColor: ""#004aad"",
-        confirmButtonText: 'Xem đơn hàng'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = 'orderinfo.aspx';
-        }
-    });
-", true);
+                // Xóa Session sau khi đặt hàng thành công
+                Session.Remove("OrderProduct");
+                Session.Remove("OrderProductId");
+                Session.Remove("OrderSize");
+                Session.Remove("OrderQuantity");
 
+                // Hiển thị thông báo thành công
+                ScriptManager.RegisterStartupScript(this, GetType(), "SuccessMessage", @"
+Swal.fire({
+    icon: 'success',
+    title: 'Đặt hàng thành công!',
+    text: 'Chúng tôi đã nhận được đơn hàng của bạn. Mã đơn hàng: " + order.Code + @"',
+    confirmButtonColor: '#004aad',
+    confirmButtonText: 'Xem đơn hàng'
+}).then((result) => {
+    if (result.isConfirmed) {
+        window.location.href = 'orderinfo.aspx';
+    } else {
+        window.location.href = 'home.aspx';
+    }
+});
+", true);
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi, có thể ghi log hoặc hiển thị thông báo
-                Response.Write("<script>alert('Đã xảy ra lỗi khi xử lý đơn hàng: " + ex.Message + "');</script>");
-                Response.Redirect("error.aspx"); // Chuyển hướng về trang sản phẩm
+                ScriptManager.RegisterStartupScript(this, GetType(), "ErrorMessage",
+                    "Swal.fire({ icon: 'error', title: 'Lỗi', text: 'Đã xảy ra lỗi: " + ex.Message + "' });", true);
             }
         }
     }
-
 }
