@@ -95,8 +95,8 @@
                         <div class="dashboard-card">
                             <div class="card-header">
                                 <div>
-                                    <h3>Tổng doanh thu</h3>
-                                    <p class="subtitle">trong tháng</p>
+                                    <h3>Doanh Thu</h3>
+                                    <p class="subtitle">tổng số</p>
                                 </div>
                                 <div class="card-value">
                                     <%= string.Format("{0:N0}", TotalRevenue).Replace(",", ".") %> VNĐ
@@ -109,7 +109,7 @@
                             <div class="card-header">
                                 <div>
                                     <h3>Khách hàng</h3>
-                                    <p class="subtitle">trong tháng</p>
+                                    <p class="subtitle">tổng số</p>
                                 </div>
                                 <div class="card-value"><%= CustomersThisMonth %> KH</div>
                             </div>
@@ -120,7 +120,7 @@
                             <div class="card-header">
                                 <div>
                                     <h3>Đơn hàng</h3>
-                                    <p class="subtitle">trong tháng</p>
+                                    <p class="subtitle">tổng số</p>
                                 </div>
                                 <div class="card-value">
                                     <%= TotalOrder %>
@@ -146,8 +146,8 @@
                                 <% foreach (var item in TopSellingProducts)
                                     { %>
                                 <div class="best-selling-item">
-                                    <div class="item-name"><%= item.ProductName %> —</div>
-                                    <div class="item-sales"><%= item.TotalSold %> Lượt bán</div>
+                                    <div class="item-name"><%= item.ProductName %> </div>
+                                    <div class="item-sales"><i class="fad fa-angle-double-right"></i> <%= item.TotalSold %> Lượt bán</div>
                                 </div>
                                 <% } %>
                             </div>

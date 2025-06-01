@@ -40,14 +40,12 @@ namespace SellShoe.UserControl
         void loadData()
         {
             // Lấy top 5 sản phẩm bán chạy nhất dựa trên số lượng đã bán
-            var topProducts = (from od in db.tb_OrderDetails
-                               where od.tb_Order.Status == 1 // Chỉ lấy đơn hàng đã xác nhận
-                               join p in db.tb_Products on od.ProductId equals p.id // Kết nối (join) với bảng sản phẩm theo ID
-                               group od by new { od.ProductId, p } into g // Nhóm theo ProductId và sản phẩm để tính tổng số lượng bán của từng sản phẩm
-                               orderby g.Sum(x => x.Quantity) descending // Sắp xếp theo tổng số lượng đã bán
-                               select g.Key.p) // Sau khi sắp xếp, chọn lại đối tượng sản phẩm (g.Key.p) từ nhóm
-                              .Take(5)
-                              .ToList();
+            var topProducts = (from q in db.tb_OrderDetails
+                              where q.tb_Order.Status == 1
+                              join p in db.tb_Products on q.ProductId equals p.id
+                              group q by new { q.ProductId, p } into g
+                              orderby g.Sum(x => x.Quantity) descending // Sắp xếp theo tổng số lượng đã bán
+                              select g.Key.p).Take(5).ToList();
 
             listSP = topProducts; // Lưu danh sách sản phẩm vào biến toàn cục
         }
@@ -57,13 +55,12 @@ namespace SellShoe.UserControl
         {
             // Lấy các sản phẩm đang hoạt động và hiển thị trang chủ (IsHome),
             // sắp xếp theo ngày tạo mới nhất
-            var newProducts = db.tb_Products
-                                .Where(p => p.IsActive == true && p.IsHome == true)
-                                .OrderByDescending(p => p.CreatedDate) // Sắp xếp theo ngày tạo mới nhất
-                                .Take(10) // Lấy 10 sản phẩm mới nhất
-                                .ToList();
+            var newProducts = (from q in db.tb_Products
+                               where q.IsActive == true && q.IsHome == true
+                               orderby q.CreatedDate descending // Sắp xếp theo ngày tạo mới nhất
+                               select q).Take(10).ToList();
 
-            listNewProducts = newProducts; // Cập nhật danh sách sản phẩm mới
+            listNewProducts = newProducts; // Lưu danh sách sản phẩm mới vào biến toàn cục
         }
 
         // Load danh mục sản phẩm
@@ -75,8 +72,8 @@ namespace SellShoe.UserControl
         // Hàm lấy alias danh mục từ CategoryId
         public string GetCategoryAlias(int? categoryId)
         {
-            var cat = listCategory.FirstOrDefault(c => c.id == categoryId);
-            return cat != null ? cat.Alias : "";
+            var cat = listCategory.FirstOrDefault(c => c.id == categoryId); // Tìm danh mục theo ID
+            return cat != null ? cat.Alias : ""; // Trả về alias nếu tìm thấy, nếu không thì trả về chuỗi rỗng
         }
 
     }

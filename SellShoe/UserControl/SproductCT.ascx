@@ -6,17 +6,6 @@
     <!-- Hình ảnh sản phẩm -->
     <div class="single-pro-image">
         <img src="<%= sanPham != null ? sanPham.Image : "" %>" width="100%" id="MainImg" alt="">
-        <div class="small-img-group">
-            <div class="small-img-col">
-                <img src="<%= sanPham != null ? sanPham.Image : "" %>" width="100%" class="small-img" alt="">
-            </div>
-            <div class="small-img-col">
-                <img src="<%= sanPham != null ? sanPham.Image : "" %>" width="100%" class="small-img" alt="">
-            </div>
-            <div class="small-img-col">
-                <img src="<%= sanPham != null ? sanPham.Image : "" %>" width="100%" class="small-img" alt="">
-            </div>
-        </div>
     </div>
 
     <!-- Thông tin sản phẩm -->
@@ -128,9 +117,9 @@
         <div class="tab-pane" id="customer-reviews">
 
             <section class="review-section">
-                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-                        <ContentTemplate>
-                <div class="review-container">
+                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                    <ContentTemplate>
+                        <div class="review-container">
                             <!-- Danh sách review -->
                             <div class="review-list" id="reviewList">
                                 <% for (int i = 0; i < listRV.Count; i++)
@@ -179,7 +168,7 @@
                                     <ContentTemplate>
                                         <div class="review-form-container">
                                             <div class="form-group">
-                                                <asp:TextBox ID="txtReviewerName" runat="server" CssClass="form-control" Placeholder="Tên của bạn" required="required"></asp:TextBox>
+                                                <asp:TextBox ID="txtReviewerName" runat="server" CssClass="form-control" Placeholder="Tên của bạn"></asp:TextBox>
                                             </div>
 
                                             <div class="form-group">
@@ -209,9 +198,9 @@
                                 </asp:UpdatePanel>
                             </div>
 
-                </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </section>
 
         </div>
@@ -270,140 +259,6 @@
     var isLoggedIn = <%= Session["user"] != null ? "true" : "false" %>;
 </script>
 
-<script>
-    var MainImg = document.getElementById("MainImg");
-    var smallimg = document.getElementsByClassName("small-img");
-
-    smallimg[0].onclick = function () {
-        MainImg.src = smallimg[0].src;
-    }
-
-    smallimg[1].onclick = function () {
-        MainImg.src = smallimg[1].src;
-    }
-
-    smallimg[2].onclick = function () {
-        MainImg.src = smallimg[2].src;
-    }
-
-    smallimg[3].onclick = function () {
-        MainImg.src = smallimg[3].src;
-    }
-</script>
-
-
-<!-- hiện popup thông báo đã gửi đánh giá thành công -->
-<script type="text/javascript">
-    // Reset star rating display
-    function resetStarRating() {
-        const stars = document.querySelectorAll('#starRating i');
-        stars.forEach(s => {
-            s.classList.remove('fas');
-            s.classList.add('far');
-        });
-        document.getElementById('<%= hfRating.ClientID %>').value = "0";
-    }
-
-    // Update review list without page reload
-    function updateReviewList() {
-        // Find the UpdatePanel containing the review list
-        var updatePanel = document.getElementById('<%= UpdatePanel1.ClientID %>');
-        if (updatePanel) {
-            // Trigger an async postback to refresh the UpdatePanel
-            __doPostBack('<%= UpdatePanel1.ClientID %>', '');
-        }
-    }
-
-    // Add this to handle UpdatePanel's partial postback
-    var prm = Sys.WebForms.PageRequestManager.getInstance();
-    prm.add_endRequest(function () {
-        // Re-initialize star rating handlers after partial postback
-        initializeStarRating();
-    });
-
-    // Star rating initialization function
-    function initializeStarRating() {
-        const stars = document.querySelectorAll('#starRating i');
-        const ratingField = document.getElementById('<%= hfRating.ClientID %>');
-
-        stars.forEach(star => {
-            star.addEventListener('click', function () {
-                const rating = this.getAttribute('data-value');
-                ratingField.value = rating;
-
-                stars.forEach(s => {
-                    if (parseInt(s.getAttribute('data-value')) <= rating) {
-                        s.classList.remove('far');
-                        s.classList.add('fas');
-                    } else {
-                        s.classList.remove('fas');
-                        s.classList.add('far');
-                    }
-                });
-            });
-        });
-    }
-
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function () {
-        initializeStarRating();
-    });
-</script>
-
-<!-- xử lý rating -->
-<script>
-    const stars = document.querySelectorAll('#starRating i');
-    const ratingField = document.getElementById('<%= hfRating.ClientID %>');
-    const submitReviewBtn = document.getElementById('<%= btnSubmitReview.ClientID %>');
-
-    stars.forEach(star => {
-        star.addEventListener('click', function () {
-            const rating = this.getAttribute('data-value');
-            ratingField.value = rating;
-
-            // Đổi màu sao
-            stars.forEach(s => {
-                if (parseInt(s.getAttribute('data-value')) <= rating) {
-                    s.classList.remove('far');
-                    s.classList.add('fas');
-                } else {
-                    s.classList.remove('fas');
-                    s.classList.add('far');
-                }
-            });
-        });
-    });
-
-    // Add form validation
-    if (submitReviewBtn) {
-        submitReviewBtn.addEventListener('click', function (e) {
-            const nameInput = document.getElementById('<%= txtReviewerName.ClientID %>');
-            const rating = document.getElementById('<%= hfRating.ClientID %>').value;
-
-            if (!nameInput.value.trim()) {
-                e.preventDefault();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi!',
-                    text: 'Vui lòng nhập tên của bạn.'
-                });
-                return false;
-            }
-
-            if (rating === '0') {
-                e.preventDefault();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi!',
-                    text: 'Vui lòng chọn số sao đánh giá.'
-                });
-                return false;
-            }
-
-            return true;
-        });
-    }
-</script>
 
 <script>
     // Xử lý chọn size
@@ -499,7 +354,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         // Rút gọn tên sản phẩm
         document.querySelectorAll(".pro .des h5").forEach(el => {
-            const maxLength = 27;
+            const maxLength = 28;
             const text = el.innerText.trim();
             if (text.length > maxLength) {
                 el.innerText = text.slice(0, maxLength - 3) + "...";
@@ -515,3 +370,140 @@
 
     });
 </script>
+
+
+<!-- xử lý rating -->
+<script type="text/javascript">
+    // Đặt lại hiển thị xếp hạng sao
+    function resetStarRating() {
+        const stars = document.querySelectorAll('#starRating i');
+        stars.forEach(s => {
+            s.classList.remove('fas');
+            s.classList.add('far');
+        });
+        const ratingField = document.getElementById('<%= hfRating.ClientID %>');
+        if (ratingField) {
+            ratingField.value = "0";
+        }
+    }
+
+    // Cập nhật danh sách đánh giá mà không cần tải lại trang
+    function updateReviewList() {
+        // Tìm UpdatePanel chứa danh sách đánh giá
+        var updatePanel = document.getElementById('<%= UpdatePanel1.ClientID %>');
+        if (updatePanel) {
+            // Kích hoạt một postback không đồng bộ để làm mới UpdatePanel
+            __doPostBack('<%= UpdatePanel1.ClientID %>', '');
+        }
+    }
+
+    // xử lý postback một phần của UpdatePanel
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    prm.add_endRequest(function () {
+        // Khởi tạo lại trình xử lý xếp hạng sao sau khi đăng lại một phần
+        initializeStarRating();
+    });
+
+    // Hàm khởi tạo xếp hạng sao
+    function initializeStarRating() {
+        const stars = document.querySelectorAll('#starRating i');
+        const ratingField = document.getElementById('<%= hfRating.ClientID %>');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const rating = this.getAttribute('data-value');
+                ratingField.value = rating;
+
+                stars.forEach(s => {
+                    if (parseInt(s.getAttribute('data-value')) <= rating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                    } else {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    }
+                });
+            });
+        });
+    }
+
+    // Cập nhật phần validation form review với kiểm tra đăng nhập
+    function validateReviewForm() {
+        // Kiểm tra đăng nhập trước tiên
+        if (!isLoggedIn) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Bạn cần đăng nhập để đánh giá sản phẩm!',
+                showConfirmButton: true,
+                confirmButtonText: 'Đăng nhập ngay'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'useraccount.aspx';
+                }
+            });
+            return false;
+        }
+
+        // Các validation khác
+        const nameInput = document.getElementById('<%= txtReviewerName.ClientID %>');
+        const rating = document.getElementById('<%= hfRating.ClientID %>').value;
+        const reviewText = document.getElementById('<%= txtReviewText.ClientID %>');
+
+        if (!nameInput.value.trim()) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Vui lòng nhập tên của bạn.'
+            });
+            return false;
+        }
+
+        if (!reviewText.value.trim()) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Vui lòng nhập đánh giá.'
+            });
+            return false;
+        }
+
+        if (rating === '0') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Vui lòng chọn số sao đánh giá.'
+            });
+            return false;
+        }
+
+        return true;
+    }
+
+    // Cập nhật event listener cho nút submit
+    function attachSubmitEvent() {
+        const submitReviewBtn = document.getElementById('<%= btnSubmitReview.ClientID %>');
+        if (submitReviewBtn) {
+            submitReviewBtn.addEventListener('click', function (e) {
+                if (!validateReviewForm()) {
+                    e.preventDefault();
+                    return false;
+                }
+                return true;
+            });
+        }
+    }
+
+    // Khởi tạo khi tải trang
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeStarRating();
+        attachSubmitEvent();
+    });
+
+    // Khởi tạo lại sau mỗi lần UpdatePanel postback
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    prm.add_endRequest(function () {
+        initializeStarRating();
+        attachSubmitEvent();
+    });
+</script>
+

@@ -91,9 +91,9 @@ namespace SellShoe.Admin
         void LoadCustomerStats()
         {
             var now = DateTime.Now;
-            CustomersThisMonth = db.tb_Users 
-                .Where(u => u.CreatedAt.Month == now.Month && u.CreatedAt.Year == now.Year)
-                .Count(); // Đếm số bản ghi trong bảng tb_Users được tạo trong tháng hiện tại.
+
+            CustomersThisMonth = db.tb_Users.Count(); // Đếm tổng số khách hàng đã đăng ký
+
         }
 
         void LoadTotalOrder()

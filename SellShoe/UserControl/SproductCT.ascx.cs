@@ -21,7 +21,7 @@ namespace SellShoe.UserControl
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadSanPham();
-            LoadBestSeller(); //load sản phẩm gợi ý
+            LoadSug(); //load sản phẩm gợi ý
             loadRV();
             RatingCacheManager.LoadRatings(); // Load ratings vào cache
         }
@@ -57,7 +57,7 @@ namespace SellShoe.UserControl
             }
         }
 
-        void LoadBestSeller() //load 5 sản phẩm cùng danh mục với sản phẩm hiện tại
+        void LoadSug() //load 5 sản phẩm cùng danh mục với sản phẩm hiện tại
         {
             if (sanPham != null) // Kiểm tra xem sản phẩm hiện tại có tồn tại không
             {
@@ -65,12 +65,14 @@ namespace SellShoe.UserControl
                 int currentCategoryId = sanPham.ProductCategoryId; // Lấy id của danh mục sản phẩm hiện tại
 
                 // Lấy 5 sản phẩm cùng danh mục, khác sản phẩm hiện tại
-                listSP = db.tb_Products // Lấy tất cả sản phẩm
-                           .Where(p => p.IsActive == true
-                                   && p.ProductCategoryId == currentCategoryId // Chỉ lấy sản phẩm cùng danh mục
-                                   && p.id != currentProductId) // Loại trừ sản phẩm hiện tại
-                           .Take(5)
-                           .ToList();
+
+                listSP = (from q in db.tb_Products // Lấy tất cả sản phẩm
+                          where q.IsActive == true 
+                          && q.ProductCategoryId == currentCategoryId // Chỉ lấy sản phẩm cùng danh mục
+                          && q.id != currentProductId
+                          orderby q.CreatedDate descending // 5 sp mới nhất
+                          select q)
+                          .Take(5).ToList();
             }
             else
             {
@@ -86,8 +88,10 @@ namespace SellShoe.UserControl
                 int.TryParse(Request.QueryString["id"], out productId); // Chuyển đổi giá trị "id" từ chuỗi sang số nguyên. Nếu sai định dạng thì productId vẫn là 0.
             }
 
-            var data = db.tb_Reviews.Where(r => r.ProductId == productId) // Lấy tất cả đánh giá của sản phẩm theo id
-                        .OrderByDescending(r => r.CreatedAt); // Sắp xếp theo ngày tạo giảm dần
+            var data = (from q in db.tb_Reviews
+                        where q.ProductId == productId // Lấy tất cả đánh giá của sản phẩm theo id
+                        orderby q.CreatedAt descending // Sắp xếp theo ngày tạo giảm dần
+                        select q);
 
             if (data != null && data.Any()) // Kiểm tra xem có đánh giá nào không
             {
@@ -97,7 +101,6 @@ namespace SellShoe.UserControl
 
         protected void btnSubmitReview_Click(object sender, EventArgs e)
         {
-
             int productId = 0;
             if (Request.QueryString["id"] != null)
             {
@@ -106,31 +109,81 @@ namespace SellShoe.UserControl
 
             if (productId > 0)
             {
-                int rating = 0;
-                int.TryParse(hfRating.Value, out rating);
-
-                var newReview = new tb_Review
+                try
                 {
-                    ProductId = productId,
-                    ReviewerName = txtReviewerName.Text.Trim(),
-                    ReviewerEmail = string.IsNullOrEmpty(txtReviewerEmail.Text) ? null : txtReviewerEmail.Text.Trim(),
-                    Rating = rating,
-                    ReviewText = string.IsNullOrEmpty(txtReviewText.Text) ? null : txtReviewText.Text.Trim(),
-                    CreatedAt = DateTime.Now
-                };
+                    int rating = 0;
+                    int.TryParse(hfRating.Value, out rating);
 
-                db.tb_Reviews.InsertOnSubmit(newReview);
-                db.SubmitChanges();
+                    var newReview = new tb_Review
+                    {
+                        ProductId = productId,
+                        ReviewerName = txtReviewerName.Text.Trim(),
+                        ReviewerEmail = string.IsNullOrEmpty(txtReviewerEmail.Text) ? null : txtReviewerEmail.Text.Trim(),
+                        Rating = rating,
+                        ReviewText = string.IsNullOrEmpty(txtReviewText.Text) ? null : txtReviewText.Text.Trim(),
+                        CreatedAt = DateTime.Now
+                    };
 
-                // Reload data
-                LoadSanPham();
-                loadRV();
+                    db.tb_Reviews.InsertOnSubmit(newReview);
+                    db.SubmitChanges();
 
-                // Clear form
-                txtReviewerName.Text = "";
-                txtReviewerEmail.Text = "";
-                hfRating.Value = "0";
-                txtReviewText.Text = "";
+                    // Reload data
+                    LoadSanPham();
+                    loadRV();
+
+                    // Clear form
+                    txtReviewerName.Text = "";
+                    txtReviewerEmail.Text = "";
+                    hfRating.Value = "0";
+                    txtReviewText.Text = "";
+
+                    ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "reviewSuccess",
+                        @"
+                setTimeout(function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công!',
+                        text: 'Đánh giá của bạn đã được thêm thành công!',
+                        timer: 5000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        if (typeof resetStarRating === 'function') {
+                            resetStarRating();
+                        }
+                    });
+                }, 100);
+                ", true);
+                }
+                catch (Exception ex)
+                {
+                    // Hiển thị thông báo lỗi nếu có exception
+                    ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "reviewError",
+                        @"
+                setTimeout(function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Có lỗi xảy ra!',
+                        text: 'Không thể thêm đánh giá. Vui lòng thử lại sau!',
+                        confirmButtonText: 'OK'
+                    });
+                }, 100);
+                ", true);
+                }
+            }
+            else
+            {
+                // Hiển thị thông báo lỗi khi không có productId hợp lệ
+                ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "reviewError",
+                    @"
+            setTimeout(function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra, vui lòng thử lại.',
+                    confirmButtonText: 'OK'
+                });
+            }, 100);
+            ", true);
             }
         }
 
