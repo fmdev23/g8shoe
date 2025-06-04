@@ -94,13 +94,8 @@ namespace SellShoe
 		{
 			OnCreated();
 		}
-
-        public QuanLyBanGiayDataContext()
-    : base(System.Configuration.ConfigurationManager.ConnectionStrings["WebBanGiayConnectionString1"].ConnectionString)
-        {
-        }
-
-        public System.Data.Linq.Table<tb_Category> tb_Categories
+		
+		public System.Data.Linq.Table<tb_Category> tb_Categories
 		{
 			get
 			{
